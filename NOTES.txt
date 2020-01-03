@@ -1,0 +1,24 @@
+CREATING DJANGO PROJECT:
+
+1) CREATE VIRTUAL ENV:
+    https://virtualenvwrapper.readthedocs.io/en/latest/install.html#quick-start
+
+    mkvirtualenv name
+    workon name
+
+2)STARTPROJECT
+    django-admin startproject mysite
+
+3)DATABASE
+
+4)import (webpack):
+    npm init
+    npm install -D @babel/core @babel/preset-env @babel/preset-react babel-loader css-loader webpack webpack-cli
+
+    package json:
+
+    "scripts":{
+        "webpack": "webpack" /*add local webpack - it will look for webpack*/
+    }
+
+    npm run webpack
