@@ -1,3 +1,6 @@
+import React from 'react';
+
+
 function OrderFieldTitle(props){
     return(
       <h4>{props.id} {props.time.slice(11,19)}</h4>
@@ -28,3 +31,4 @@ function OrderFieldTitle(props){
       );
     }
   }
+  export default OrderBox;

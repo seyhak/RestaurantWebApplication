@@ -1,4 +1,5 @@
-//import OrderBox from '.order_box/order_box';
+import React from 'react';
+import OrderBox from '.order_box/order_box';
 
   class OrdersBoard extends React.Component{//3x3 board for the start
     renderBox(i){
@@ -30,3 +31,4 @@
       );
     }
   }
+  export default OrdersBoard

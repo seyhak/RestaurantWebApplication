@@ -1,4 +1,3 @@
-import React from 'react';
 import Receiver from  '../../receiver/receiver.js';
 console.log("Switcher loaded");
 
@@ -34,4 +33,4 @@ class Switcher{
       }
     }
   }
-  //export {Receiver};
+  export default Switcher;

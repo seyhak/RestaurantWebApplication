@@ -1,3 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import OrdersReceiver from './order_reciever/order_receiver';
+
 class Receiver{
 
     constructor(companyID){
@@ -30,4 +34,4 @@ class Receiver{
       });
     }
   };
-  export {Receiver};
+  export default Receiver;

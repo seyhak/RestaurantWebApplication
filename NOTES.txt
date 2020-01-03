@@ -16,9 +16,12 @@ CREATING DJANGO PROJECT:
     npm install -D @babel/core @babel/preset-env @babel/preset-react babel-loader css-loader webpack webpack-cli
 
     package json:
-
+    webpack.config.js
     "scripts":{
         "webpack": "webpack" /*add local webpack - it will look for webpack*/
     }
 
     npm run webpack
+
+    errors with some pack? reinstall for example react
+
