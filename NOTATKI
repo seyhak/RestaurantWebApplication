@@ -1,0 +1,10 @@
+CREATING DJANGO PROJECT:
+
+1) CREATE VIRTUAL ENV:
+    https://virtualenvwrapper.readthedocs.io/en/latest/install.html#quick-start
+
+    mkvirtualenv name
+    workon name
+
+2)STARTPROJECT
+django-admin startproject mysite

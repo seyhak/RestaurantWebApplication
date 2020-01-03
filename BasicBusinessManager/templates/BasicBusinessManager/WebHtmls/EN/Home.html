@@ -1,0 +1,116 @@
+{% extends "BasicBusinessManager/WebHtmls/EN/Base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'BasicBusinessManager/styles-home.css' %}">
+    <div data-spy="affix" id="dot-nav" class="float-right" >
+            <ul>
+              <li class="awesome-tooltip active" title="Home"><a href="#home"></a></li>
+              <li class="awesome-tooltip" title="About"><a href="#slideshow"></a></li>
+              <li class="awesome-tooltip" title="Contact"><a href="#contact"></a></li>
+            </ul>
+    </div>   
+    <!--titling text-->
+    <section id="home">
+        <div class="scrollSide"> 
+            <h1 class="display-1 text-center" id="title">RestIT</h1>
+            
+            <p class="lead text-center"> 
+                {% if request.user.is_authenticated %}
+                Welcome {{user.username}}
+                {% else %}
+                Manage your restaurant easy like never before
+                {% endif %}
+            </p>
+        </div>
+    </section>
+<!--slideshow-->
+    <section id="slideshow">
+        <!--Carousel-imageshow-->
+        <div id="carousel" class="carousel slide scrollSide" data-ride="carousel">
+
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                    <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel" data-slide-to="1"></li>
+                    <li data-target="#carousel" data-slide-to="2"></li>
+                </ul>
+
+                <!-- The slideshow -->
+                <div class="carousel-inner scrollSide">
+
+                    <div class="carousel-item active scrollSide">
+                        
+                        <img src="{% static 'BasicBusinessManager/Images/1.jpg' %}" class="carousel-img"  alt="">
+                        <div class="carousel-caption"> 
+                            <h1 class="display-1 text-center" id="carousel-txt">Get inspired</h1>
+                        </div>
+
+                    </div>
+
+                    <div class="carousel-item scrollSide">
+
+                        <img src="{% static 'BasicBusinessManager/Images/2.jpg' %}" class="carousel-img" alt="">
+                        <div class="carousel-caption"> 
+                            <h1 class="display-1 text-center" id="carousel-txt">Live amazing life</h1>
+                        </div>
+
+                    </div>
+                
+                    <div class="carousel-item scrollSide"> 
+                        
+                        <img src="{% static 'BasicBusinessManager/Images/3.jpg' %}" class="carousel-img"alt="">
+                        <div class="carousel-caption"> 
+                            <h1 class="display-1 text-center" id="carousel-txt">Serve amazing food!</h1></div>
+                        </div>
+                    
+                    </div>
+
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#carousel" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                </a>
+
+        </div>
+    </section>
+<!--contact-->
+    <section id="contact">
+        <div>
+            <h5 id="contact-display" class="display-5 text-center">Contact data:</h5>
+            <div class="row">
+                <div class="col-md-3 mx-auto card-containter">
+                    <div class="card mx-auto">
+                        <img class="card-img-top" src="{% static 'BasicBusinessManager/Images/avatar1.png' %}">
+                        <div class="card-body">
+                            <p class="text-center">Seyhak Ly</p>
+                            <p class="text-center">509989307</p>
+                            <p class="text-center">seyhak.ly@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mx-auto">
+                        <div class="card mx-auto">
+                            <img class="card-img-top" src="{% static 'BasicBusinessManager/Images/avatar1.png' %}">
+                            <div class="card-body">
+                                <p class="text-center">Seyhak Ly</p>
+                                <p class="text-center">509989307</p>
+                                <p class="text-center">seyhak.ly@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-md-3 mx-auto">
+                        <div class="card mx-auto">
+                            <img class="card-img-top" src="{% static 'BasicBusinessManager/Images/avatar1.png' %}">
+                            <div class="card-body">
+                                <p class="text-center">Seyhak Ly</p>
+                                <p class="text-center">509989307</p>
+                                <p class="text-center">seyhak.ly@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

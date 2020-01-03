@@ -1,0 +1,103 @@
+<!-- The Modal for login -->
+<div class="modal fade" id="login-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+        
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title">Login</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+        
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action ="{% url 'BasicBusinessManager:login' %}" method = "post" id="login_form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label for="login">Email/login:</label>
+                              <input type="text" class="form-control" name="login" id="login">
+                            </div>
+                            <div class="form-group">
+                              <label for="pwd">Password:</label>
+                              <input type="password" class="form-control" name="pwd" id="pwd">
+                            </div>
+                            <div class="form-group form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="remember-me-checkbox" id="remember-ckbox"> Remember me
+                              </label>
+                            </div>
+                        <button type="submit" name="submit" value="login" class="btn btn-primary">Confirm</button>
+                    </form>
+                </div>
+        
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+    {% if wrong_pwd %} 
+    <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#sign-up-modal').modal('show');
+        });
+    </script> 
+    {% endif %}
+<!-- The Modal for Sign up -->
+<div class="modal fade" id="sign-up-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+        
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title">Sign Up</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+        
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="{% url 'BasicBusinessManager:login' %}" method="POST" >
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label for="login">Email:</label>
+                              <input type="text" class="form-control" name = "sign-up-email" id="sign-up-email">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Login:</label>
+                                <input type="text" class="form-control" name = "sign-up-username" id="sign-up-username">
+                            </div>
+                            <div class="form-group">
+                              <label for="pwd">Password:</label>
+                              <input type="password" class="form-control"  name = "sign-up-pwd" id="sign-up-pwd">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Confirm password:</label>
+                                <input type="password" class="form-control" name = "sign-up-confirm-pwd" id="sign-up-confirm-pwd">
+                            </div>
+                            <div class="form-group">
+                                    <label for="type-sel">Select account type:</label>
+                                    <select class="form-control" id="type-sel" name="type-sel">
+                                      <option>Client</option>
+                                      <option>Employee</option>
+                                      <option>Business client</option>
+                                    </select>
+                                  </div>
+                            {% if wrong_pwd %}
+                            <div class="alert alert-danger">
+                                <strong>Error! </strong>{{wrong_pwd}}
+                            </div>
+                            {% endif %}
+                        <button type="submit" value="sign_up" name="submit" class="btn btn-primary">Confirm</button>
+                    </form>
+                </div>
+        
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+        
+            </div>
+        </div>
+    </div>

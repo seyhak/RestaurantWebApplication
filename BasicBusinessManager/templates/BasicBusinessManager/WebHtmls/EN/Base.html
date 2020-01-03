@@ -1,0 +1,112 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">XHTML-->
+<!DOCTYPE html>
+<html lang="en-PL">
+<head>
+    <!--Django part-->
+    {% load static %}
+    {% load filters %}
+    <!--End of Django-->
+    <meta charset="UTF-8">
+    <!--meta tells stuff to search engines-->
+    <meta name="keywords" content="Free, Restaurant, app">
+    <meta name="description" content="Free web Restaurant app">
+    <meta name="author" content="Seyhak Ly">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--responsive web design-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!--jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!--bootstrap-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--react-->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <!--statics-->
+    <script src="{% static 'BasicBusinessManager/Scripts/dot-nav.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'BasicBusinessManager/styles-base.css' %}">
+    <!--AJAX-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{% static 'BasicBusinessManager/Scripts/ajax-form.js' %}"></script>
+    <!--interapp script-->
+    <script>
+        function deleteActiveTab(){
+            tabsArray = $(".nav-link");
+            for(var i=0; i<tabsArray.length;i++)
+            {
+                if(tabsArray[i].classList.contains('active'))
+                {
+                    tabsArray[i].classList.remove('active');
+                }
+            }
+        }
+        function changeActiveTab(){
+            deleteActiveTab();
+            var url = window.location.href;
+            url = url.substr(21);
+            var urlsArray=["{% url 'BasicBusinessManager:main' %}#home","{% url 'BasicBusinessManager:main' %}#contact","{% url 'order_manager:home' %}","{% url 'react_tutorial:home' %}"];
+            var idsArray=['home-tab','contact-tab','restit-tab','react-tutorial-tab'];
+            for(i = 0;i<urlsArray.length;i++)
+            {
+                if(urlsArray[i].includes(url))
+                {
+                    document.getElementById(idsArray[i]).classList.add('active');
+                    break;
+                }
+            }
+        }
+    </script>
+    <title>Seyhak Ly</title>
+</head>
+
+<body>
+    <!--Top navbar-->
+    <header class="bg-light">
+        <nav class="navbar navbar-light navbar-expand-md">
+             <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler ml-auto btn-dark" type="button" data-toggle="collapse" data-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="nav-tabs nav collapse navbar-collapse" id="navbar">
+    
+                <li class="nav-item"><a class="nav-link active" id="home-tab" href="{% url 'BasicBusinessManager:main' %}#home">Home</a></li>
+                <!--<li class="nav-item"><a class="nav-link" ></a></li>-->
+                <li class="nav-item"><a class="nav-link " id="contact-tab" href="{% url 'BasicBusinessManager:main' %}#contact" >Contact</a></li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" id="restit-tab"  href="{% url 'order_manager:home' %}" >RestIT</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" id="react-tutorial-tab"  href="{% url 'react_tutorial:home' %}" >React</a></li>
+
+
+                <li class="nav-item ml-auto dropdownContainer">
+                    <a class="nav-link dropdown-toggle ml-auto" data-toggle="dropdown" href="#">
+                        {% if not request.user.is_authenticated %}
+                        Account
+                        {% else %}
+                        {{request.user.username}}
+                        {% endif %}
+                    </a>
+                        <div class="dropdown-menu">
+                            <!--<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="accountdropdown">Account</a>-->
+                            {% if not request.user.is_authenticated %}
+                            <button type="button" class="dropdown-item" data-toggle="modal" data-target="#login-modal">Login</button>
+                            <button type="button" class="dropdown-item" data-toggle="modal" data-target="#sign-up-modal">Sign Up</button>
+                            {% else %}
+                            <a class="dropdown-item btn"  href="{% url 'BasicBusinessManager:settings' %}">Settings</a>
+                            <a class="dropdown-item btn"  href="{% url 'BasicBusinessManager:logout' %}">Sign Out</a>
+                            {% endif %}
+                        </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <script>window.onload=changeActiveTab();</script>
+    {% include 'BasicBusinessManager\WebHtmls\EN\Modal_account.html' %}
+    {% block content %}
+    {% endblock %}
+</body>
+<footer class="bg-dark">
+    <a class="text-white " href="http://www.seyhak.pl">Seyhak Ly &copy 2019</a> 
+</footer>
+
+</html>

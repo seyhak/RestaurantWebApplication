@@ -1,0 +1,59 @@
+/*ID>class,pseudoclass>tag selectors,pseudoelements*/
+section
+{
+    height: 100vh;
+}
+a
+{
+    text-decoration: none;
+    color:black;
+}
+.settings-view .settings-input
+{
+    min-width: 100%;
+}
+.card
+{
+     width:35vw;
+} 
+/*mobile devices first-design for mobiles - desktops are faster so they adapt faster */
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+.card
+{
+     width:35vw;
+} 
+.nav-item
+{
+   width: auto;
+}
+#carousel-txt
+{
+    font-size: 4em;
+}
+}
+@media only screen and (max-width: 350px) {
+    /* For mini mobile phones:*/
+    #carousel-txt
+    {
+      font-size: 1.5em;
+    }
+    #title
+    {
+        font-size: 2.5em;
+    }
+    .settings-view span, .settings-view input
+    {
+        font-size: 0.8em;
+    }
+}
+
+
+/*.carousel-indicators li {
+    color: black;
+    background-color: #000000;
+    box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.5);    
+}
+.carousel-indicators .active {
+    background-color: #000000;
+}*/

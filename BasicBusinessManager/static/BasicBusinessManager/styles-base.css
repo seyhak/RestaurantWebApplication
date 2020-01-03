@@ -1,0 +1,82 @@
+/*ID>class,pseudoclass>tag selectors,pseudoelements*/
+#carousel-txt
+{
+    font-size:3em;
+    /*Viewport is the browser window size.
+     1vw = 1% of viewport width. If the viewport is 50cm wide, 1vw is 0.5cm.*/
+}
+a
+{
+    color: black !important;
+    text-decoration: none !important;
+}
+#navbar
+{
+    width: 100%;
+}
+#navlink
+{
+    color: black !important;
+    text-decoration: none !important;
+}
+.nav-item
+{
+   width: 100vw;
+}
+.dropdownContainer
+{
+ position: relative;
+}
+
+/*side nav*/
+#dot-nav{
+    position: sticky;   
+	right: 10px;
+	top: 50%;
+	height: 100px;
+	z-index: 999;
+}
+
+#dot-nav ul {
+	list-style: none;
+	margin:0;
+	padding: 0;
+}
+#dot-nav li {
+	position: relative;
+	background-color: #bdc3c7;
+	border:3px solid #bdc3c7;
+	border-radius: 15px 15px 15px 15px;
+	cursor: pointer;
+	padding: 5px;
+	height: 10px;
+	margin: 10px 10px 0px 0px;
+	width: 10px;
+	vertical-align:bottom;
+}
+#dot-nav li.active, #dot-nav li:hover {
+	background-color: black;
+}
+
+#dot-nav a {
+	outline: 0;
+	vertical-align:top;
+	margin: 0px 0px 0px 25px;
+	position: relative;
+	top:-5px;
+}
+
+/*mobile devices first-design for mobiles - desktops are faster so they adapt faster */
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+
+.nav-item
+{
+   width: auto;
+}
+@media only screen and (max-width: 350px) {
+    /* For mini mobile phones:*/
+
+
+}
+

@@ -1,0 +1,102 @@
+{% extends "BasicBusinessManager/WebHtmls/EN/Base.html" %}
+{% load static %}
+{% block content %}
+<script src="{% static 'BasicBusinessManager/Scripts/settings.js' %}"></script>
+<div id="settings" class="m-5 settings-view">
+    <h1 class="h5 text-center m-2">Settings for {{request.user.username}}</h1>
+    <!--action ="{% url 'BasicBusinessManager:main' %}" method = "post"-->
+    <form></form>
+        {% csrf_token %}
+        <label for="address-group settings-input">Basic data:</label>
+        <div class="input-group mb-3" id='basic-data-group'>
+            <div class="input-group-prepend settings-input">
+                <span class="input-group-text settings-input">First name</span>
+            </div>
+            <input type="text" class="form-control settings-input" value ="{{request.user.first_name}}" placeholder="First Name" name="firstname" id="firstname">
+            <div class="input-group-prepend settings-input">
+                    <span class="input-group-text settings-input">Last name</span>
+            </div>
+            <input type="text" class="form-control settings-input" value ="{{request.user.last_name}}" placeholder="Last Name" name="lastname" id="lastname">
+        </div>
+        <label for="address-group settings-input">Address:</label>
+        <div class="form-group settings-input" id="address-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend settings-input">
+                    <span class="input-group-text settings-input">Address</span>
+                </div>
+                <input type="text" class="form-control settings-input" name="street" placeholder="address" value = "" id="street">
+                <!--for further use-->
+                <!--
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Home number</span>
+                </div>
+                <input type="text" class="form-control" name="home-number" id="home-number">
+            </div>
+            <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Post code</span>
+                    </div>
+                    <input type="text" class="form-control" name="post-code" id="post-code">
+                    <div class="input-group-prepend">
+                            <span class="input-group-text">City</span>
+                    </div>
+                    <input type="text" class="form-control" name="city" id="city">
+                    <div class="input-group-prepend">
+                            <span class="input-group-text">Country</span>
+                    </div>
+                    <input type="text" class="form-control" name="country" id="country">-->
+            </div>
+        </div>
+{% if account_type == "Client" %}
+        <script>window.onload=buildUserEnhancedObjectFromJSON("{{request.user.client.type_name}}",{{request.user.client.id}},'GET','{{request.user.username}}');</script>
+        <!--birthday-->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend settings-input">
+                <span class="input-group-text settings-input">Birthday</span>
+            </div>
+            <input type="date" class="form-control settings-input" value="{{request.user.client.birthday|date:'Y-m-d'}}" name="birthday" id="birthday">
+        </div>
+        <button type="submit" onclick="buildUserEnhancedObjectFromJSON('{{request.user.client.type_name}}',{{request.user.client.id}},'PUT','{{request.user.username}}')" name="submit" value="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+</div>
+{% elif account_type == "CompanyOwner" %}
+    <script>window.onload=buildUserEnhancedObjectFromJSON("{{account_type}}",{{request.user.companyowner.id}});</script>
+    <!--birthday-->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend settings-input">
+            <span class="input-group-text settings-input">Birthday</span>
+        </div>
+        <input type="date" class="form-control settings-input" value="{{request.user.companyowner.birthday|date:'Y-m-d'}}" name="birthday" id="birthday">
+    </div>
+    <button type="submit" onclick="buildUserEnhancedObjectFromJSON('{{request.user.companyowner.type_name}}',{{request.user.companyowner.id}},'PUT','{{request.user.username}}')" name="submit" value="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% elif account_type == "Employee" %}
+    <script>window.onload=buildUserEnhancedObjectFromJSON("{{request.user.employee.type_name}}",{{request.user.employee.id}});</script>
+    <!--birthday-->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend settings-input">
+            <span class="input-group-text settings-input">Birthday</span>
+        </div>
+        <input type="date" class="form-control settings-input" value="{{request.user.employee.birthday|date:'Y-m-d'}}" name="birthday" id="birthday">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend mb-3">
+            <span class="input-group-text">Salary per month</span>
+        </div>
+        <input readonly type="text" class="form-control" name="month-salary" id="month-salary" value="{{request.user.employee.salary_per_month}}">
+    </div>
+    <button type="submit" onclick="buildUserEnhancedObjectFromJSON('{{request.user.employee.type_name}}',{{request.user.employee.id}},'PUT','{{request.user.username}}')" name="submit" value="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endif %}
+<!--Ajax to form plugin-->
+<script>
+    $(document).ready(function() {
+        $('form').ajaxForm();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,159 @@
+/*ID>class,pseudoclass>tag selectors,pseudoelements*/
+section
+{
+    height: 100vh;
+}
+a
+{
+    color: black !important;
+    text-decoration: none !important;
+}
+#carousel-txt
+{
+    font-size:3em;
+    /*Viewport is the browser window size.
+     1vw = 1% of viewport width. If the viewport is 50cm wide, 1vw is 0.5cm.*/
+}
+#navbar
+{
+    width: 100%;
+}
+#navlink
+{
+text-decoration: none;
+}
+.scrollSide-50
+{
+    height: 50vh;
+}
+.nav-item
+{
+   width: 100vw;
+}
+.dropdownContainer
+{
+ position: relative;
+}
+
+.scrollSide
+{
+    height: 100vh;
+}
+.card
+{
+    margin: 2vh;
+    width:  80vw;
+}
+.carousel-img
+{
+    max-width: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+#contact
+{
+    height: 100%;
+}
+#contact-display
+{
+    margin-top: 5%;
+    width:10vh;
+}
+/*side nav*/
+#dot-nav{
+    position: sticky;   
+	right: 10px;
+	top: 50%;
+	height: 100px;
+	z-index: 999;
+}
+
+#dot-nav ul {
+	list-style: none;
+	margin:0;
+	padding: 0;
+}
+#dot-nav li {
+	position: relative;
+	background-color: #bdc3c7;
+	border:3px solid #bdc3c7;
+	border-radius: 15px 15px 15px 15px;
+	cursor: pointer;
+	padding: 5px;
+	height: 10px;
+	margin: 10px 10px 0px 0px;
+	width: 10px;
+	vertical-align:bottom;
+}
+#dot-nav li.active, #dot-nav li:hover {
+	background-color: black;
+}
+
+#dot-nav a {
+	outline: 0;
+	vertical-align:top;
+	margin: 0px 0px 0px 25px;
+	position: relative;
+	top:-5px;
+}
+.awesome-tooltip + .tooltip > .tooltip-inner {
+    background-color: #8e44ad; 
+    color: #f5f5f5; 
+    border: 1px solid #8e44ad; 
+}
+.awesome-tooltip + .tooltip.left > .tooltip-arrow{
+    top:50%;
+    right:0;
+    margin-top:-5px;
+    border-top:5px solid transparent;
+    border-bottom:5px solid transparent;
+    border-left:5px solid #8e44ad;
+}
+/*Settings website*/
+
+.settings-view .settings-input
+{
+    min-width: 100%;
+}
+/*mobile devices first-design for mobiles - desktops are faster so they adapt faster */
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+.card
+{
+     width:100%;
+} 
+.nav-item
+{
+   width: auto;
+}
+#carousel-txt
+{
+    font-size: 4em;
+}
+}
+@media only screen and (max-width: 350px) {
+    /* For mini mobile phones:*/
+    #carousel-txt
+    {
+      font-size: 1.5em;
+    }
+    #title
+    {
+        font-size: 2.5em;
+    }
+    .settings-view span, .settings-view input
+    {
+        font-size: 0.8em;
+    }
+}
+
+
+/*.carousel-indicators li {
+    color: black;
+    background-color: #000000;
+    box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.5);    
+}
+.carousel-indicators .active {
+    background-color: #000000;
+}*/

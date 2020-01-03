@@ -1,0 +1,21 @@
+{% load static %}
+<script type="module" src="{% static '/order_manager/components/main/cards/cards.js' %}"></script>
+<!--type="text/babel" type="module"-->
+<div id="order_board" class="d-flex justify-content-around">
+        <div class="card m-4">
+            <button class="btn btn-outline-dark" onclick="chooseRestItFunction('sender','{{request.user.employee.id}}')">
+            <img class="card-img-top"  alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text text-center">Sender</p>
+            </div>
+            </button>
+        </div>
+        <div class="card m-4">
+            <button class="btn btn-outline-dark" onclick="Switcher.chooseRestItFunction('receiver','{{request.user.employee.id}}')">
+            <img class="card-img-top"  alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text text-center">Reciever</p>
+            </div>
+            </button>
+        </div>
+</div>
