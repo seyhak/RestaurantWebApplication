@@ -6,7 +6,7 @@ class Receiver{
 
     constructor(companyID){
       this.companyID = companyID;
-      this.companyID = this.companyID[0];///decision for workplace - todo
+      //this.companyID = this.companyID[0];///decision for workplace - todo
       this.orders="";
       var me = this;
       $.when(this.getUndoneOrders()).done(function(data){

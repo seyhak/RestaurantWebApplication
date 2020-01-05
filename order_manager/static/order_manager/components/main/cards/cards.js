@@ -1,4 +1,4 @@
-import Receiver from  '../../receiver/receiver.js';
+import Receiver from  '../../receiver/receiver';
 console.log("Switcher loaded");
 
 
@@ -17,8 +17,8 @@ class Switcher{
   
     static chooseRestItFunction(foo,userId){
       if(foo==="sender"){
-        hideMenu();
-        runRecieverUI(getCompanyID(userId));
+        this.hideMenu();
+        this.runRecieverUI(this.getCompanyID(userId));
       }
       else{
         if(foo==="receiver"){

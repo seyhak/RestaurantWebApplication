@@ -25,3 +25,5 @@ CREATING DJANGO PROJECT:
 
     errors with some pack? reinstall for example react
 
+
+
