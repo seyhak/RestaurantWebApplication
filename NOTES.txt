@@ -1,4 +1,4 @@
-CREATING DJANGO PROJECT:
+------------------CREATING DJANGO PROJECT:-------------------------
 
 1) CREATE VIRTUAL ENV:
     https://virtualenvwrapper.readthedocs.io/en/latest/install.html#quick-start
@@ -24,6 +24,10 @@ CREATING DJANGO PROJECT:
     npm run webpack
 
     errors with some pack? reinstall for example react
+
+---------------------------REACT---------------------------------
+Passing props is how information flows in React apps, from parents to children.
+
 
 
 

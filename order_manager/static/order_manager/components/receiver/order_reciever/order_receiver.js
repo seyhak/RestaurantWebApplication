@@ -1,4 +1,4 @@
-//import OrdersBoard from './order_board/order_board';
+import OrdersBoard from './order_board/order_board';
 class OrdersReceiver extends React.Component{//waiting for extensions(? no idea what kind of yet)
     constructor(props){
       super(props);
@@ -24,3 +24,4 @@ class OrdersReceiver extends React.Component{//waiting for extensions(? no idea 
     }
   
   }
+export default OrdersReceiver;
