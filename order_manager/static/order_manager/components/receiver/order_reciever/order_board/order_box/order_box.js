@@ -11,7 +11,7 @@ function OrderFieldTitle(props){
     for(var i = 0; i<props.products.length; i++){
       content+=(<p> - {props.products.pop()}</p>);
     }
-    console.log(content);
+    //console.log(content);
     return(
       <div className="order_box_content">
         {content}
@@ -22,7 +22,7 @@ function OrderFieldTitle(props){
   
     render()
     {
-      console.log(this.props);
+      //console.log(this.props);
       return(
         <button className="order_box" id = {this.props.order.id} onClick={this.props.onOrderClick}>
           <OrderFieldTitle id={this.props.order.id} time = {this.props.order.order_date}/>

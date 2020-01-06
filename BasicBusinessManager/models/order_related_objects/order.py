@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 # Don't allow dates older than order_date.
 class Order(models.Model):
     client = models.ForeignKey("Client",on_delete=models.DO_NOTHING,blank=True, null=True)
-    products = models.ManyToManyField("Product")
+    products = models.ManyToManyField("Product", related_name="+")
     deliverant = models.ForeignKey("Company",on_delete=models.DO_NOTHING)
     order_date = models.DateTimeField(auto_now_add=True)
     delivery_date = models.DateTimeField(blank = True,null=True)
@@ -18,8 +18,14 @@ class Order(models.Model):
     delivered = models.BooleanField(default=False)
 
     def was_delivered(self):
-        return timezone.now() > self.deliver_date >= self.order_date
+        if self.delivery_date is not None:
+            return True
+        else:
+            return False
         
     was_delivered.admin_order_field = delivered
-    was_delivered.short_desction = "Delivered ?"
+    was_delivered.short_description = "Delivered ?"
+
+    def get_orders_id(self):
+        return "\n".join([w.name for w in self.products.all()])    
 
