@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models.order_related_objects.company import Company, Sector
-from .models.order_related_objects.order import Order
+from .models.order_related_objects.order import Order, ProductCounter
 from .models.order_related_objects.product import Product
 from .models.order_related_objects.product import Sale_out
 from .models.users.client import Client
@@ -22,12 +22,21 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('user','get_workplaces')
     #list_filter = ['role','workplace']
     #search_fields = ['name']
+    
+class ProductInline(admin.TabularInline):
+    model=ProductCounter
+
+@admin.register(Order)#decorator register model
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id','order_date','get_orders_id' ,'was_delivered')
     list_filter = ['products']
     search_fields = ['id']
+    inlines = [
+        ProductInline,
+    ]
 
 #registering models to admin site
+admin.site.register(ProductCounter)
 admin.site.register(Company)
 admin.site.register(Sector)
 admin.site.register(Product)
@@ -36,4 +45,4 @@ admin.site.register(Client)
 admin.site.register(CompanyOwner)
 admin.site.register(Employee,EmployeeAdmin)
 admin.site.register(Role)
-admin.site.register(Order,OrderAdmin)
+#admin.site.register(Order,OrderAdmin)

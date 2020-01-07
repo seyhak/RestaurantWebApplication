@@ -10,7 +10,7 @@
     django-admin startproject mysite
 
 3)DATABASE
-
+    manage.py createsuperuser
 4)import (webpack):
     npm init
     npm install -D @babel/core @babel/preset-env @babel/preset-react babel-loader css-loader webpack webpack-cli
@@ -27,7 +27,10 @@
 
 ---------------------------REACT---------------------------------
 Passing props is how information flows in React apps, from parents to children.
+---------------------------DECORATORS----------------------------
+https://realpython.com/primer-on-python-decorators/
 
+-----------------------------------------------------------------
 
 
 
