@@ -55,10 +55,12 @@ class ClientSerializer(serializers.ModelSerializer):
         fields.extend(['username','firstname'])#add
         fields.append('firstname')
         fields.append('lastname')
+
 class OrderSerializer(serializers.ModelSerializer):
+    #add product name to 
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = [field.name for field in model._meta.fields]
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:

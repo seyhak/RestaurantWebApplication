@@ -5,7 +5,6 @@ import OrdersReceiver from './order_reciever/order_receiver';
 class Receiver{
 
     constructor(companyID){
-      //console.log(companyID);
       this.companyID = companyID;
       this.companyID = this.companyID[0];///decision for workplace - todo
       this.orders="";
@@ -17,8 +16,6 @@ class Receiver{
     }
   
     runReceiverUI(){
-      //console.log(this.orders);
-      //var reactReceiver = new OrdersReciever(this.orders);
       ReactDOM.render(
       <OrdersReceiver orders = { this.orders }/>, document.getElementById("order_board"));
     }
@@ -31,7 +28,6 @@ class Receiver{
   
     getUndoneOrders(){
       var url = this.getUndoneOrdersJsonUrl();
-      //console.log(url);
       return $.getJSON(url,function(data){
       });
     }
