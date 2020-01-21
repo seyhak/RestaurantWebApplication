@@ -30,6 +30,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
         fields.append('workplace')
         fields.append('username')
         fields.append('role')
+
 class UserSerializer(serializers.ModelSerializer):
     #firstname = serializers.CharField(source=User.first_name)
     #id = serializers.IntegerField(source=User.id)
@@ -51,16 +52,10 @@ class ClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Client
-        fields = [field.name for field in model._meta.fields]#all
-        fields.extend(['username','firstname'])#add
+        fields = [field.name for field in model._meta.fields]
+        fields.extend(['username','firstname'])
         fields.append('firstname')
         fields.append('lastname')
-
-class OrderSerializer(serializers.ModelSerializer):
-    #add product name to 
-    class Meta:
-        model = Order
-        fields = [field.name for field in model._meta.fields]
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -71,6 +66,14 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+
+class OrderSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Order
+        fields = [field.name for field in model._meta.fields]
+        fields.append('products')
 
 class SaleOutSerializer(serializers.ModelSerializer):
     class Meta:

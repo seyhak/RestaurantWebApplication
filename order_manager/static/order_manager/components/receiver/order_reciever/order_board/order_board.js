@@ -3,8 +3,8 @@ import OrderBox from './order_box/order_box';
 
   class OrdersBoard extends React.Component{//3x3 board for the start
     renderBox(i){
-      console.log("orderBoard");
-      console.log(this.props.orders.orders[i]);
+    //  console.log("orderBoard");
+    //   console.log(this.props.orders.orders[i]); 
       return(
         <OrderBox
           key = {i}
