@@ -1,18 +1,34 @@
 import React from 'react';
-
+import './order_box.css'
 
 function OrderFieldTitle(props){
     return(
-      <h6 className="text-left pl-1">{props.id} {props.time.slice(11,19)}</h6>
+      <div className = "order_field_title_box">
+        <h6 className = "text-center pl-1">{props.id} {props.time.slice(11,19)}</h6>
+        <hr className = "title_underlane"></hr>
+      </div>
     );
   }
 
 function CountProducts(products){
-  const content_set = CreateProductsSet(products);
-  //TODO create dictionary product name: counted
+  let content = CreateProductsSet(products);
+  content = Array.from(content);
+  console.log(content);
+  let content_counts = Array(content.length).fill(0);
+  // console.log(content_set_counts);
   for (let i = 0; i < products.length; i++) {
-    
+    for(let j = 0; j < content.length; j++){
+      if(products[i].name == content[j]){
+        content_counts[j]++;
+        break;
+      }
+    }
   }
+  let counted_products = {};
+  for (let i = 0; i < content.length; i++) {
+    counted_products[content[i]] = content_counts[i];
+  }
+  return counted_products;
 }
 
 function CreateProductsSet(products){
@@ -24,22 +40,17 @@ function CreateProductsSet(products){
 }
 
 function OrderFieldContent(props){
-  var content = [];
-  var counted_products = CountProducts(props.products);
-  console.log(content_set);
-  for(var i = 0; i < props.products.length; i++){
-    if(i==0){
-      content.push(<li> {props.products[i].name}</li>);
-    }
-    else{
-      content.push(<li> {props.products[i].name}</li>);
-    }
-  }
+  let content = [];
+  let counted_products = CountProducts(props.products);
+  console.log(counted_products);
+  Object.entries(counted_products).forEach(([key, value]) => {
+    content.push(<li className = "text-left "> <div className = "font-weight-bold">{key} x {value}</div></li>);
+ });
   return(
     <div className="order_box_content">
-      <ol>
+      <ul>
         {content}
-      </ol>
+      </ul>
     </div>
   );
 }

@@ -1,5 +1,12 @@
-.order_box
+ul
 {
-
-
+    margin-bottom: 0.2rem;
+    padding: 1rem;
+}
+.title_underlane{
+    border-top: 1px solid black;
+    margin-top: 0.3rem;
+    margin-bottom: 0.1rem;
+}
+.order_field_title_box{
 }

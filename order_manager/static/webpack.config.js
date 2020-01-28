@@ -23,6 +23,15 @@ module.exports = {
                       }
                     }
                 ],
+            },
+            {
+                test: /\.css$/, 
+                use: ['style-loader',
+                'css-loader'],
+                // A CSS Module is a CSS file in which all class names and animation names are scoped locally by default."
+                options: {
+                    modules: true
+                }
             }
         ]
     },
