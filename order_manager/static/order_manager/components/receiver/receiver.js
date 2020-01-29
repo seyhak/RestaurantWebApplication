@@ -12,7 +12,7 @@ class Receiver{
       $.when(this.getUndoneOrders()).done(function(data){
         me.orders=data;
         
-      console.log(data);
+      // console.log(data);
         me.runReceiverUI();
       });
     }

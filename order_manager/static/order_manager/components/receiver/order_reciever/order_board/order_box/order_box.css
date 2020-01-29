@@ -1,12 +1,24 @@
 ul
 {
+    width: 100%;
     margin-bottom: 0.2rem;
-    padding: 1rem;
+    padding: 0.3rem;
+    list-style-type: none;
+}
+li{
+    width: 100%;
 }
 .title_underlane{
     border-top: 1px solid black;
     margin-top: 0.3rem;
     margin-bottom: 0.1rem;
 }
-.order_field_title_box{
+/* .order_field_product_name{
+} */
+.order_field_product_count{
+    margin-left: 5rem;
+}
+.order_product_underlane{
+    margin-top: 0rem;
+    margin-bottom: 0.1rem;
 }

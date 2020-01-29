@@ -4,7 +4,7 @@ import './order_box.css'
 function OrderFieldTitle(props){
     return(
       <div className = "order_field_title_box">
-        <h6 className = "text-center pl-1">{props.id} {props.time.slice(11,19)}</h6>
+        <h6 className = "text-center font-italic pl-1">{props.id} {props.time.slice(11,19)}</h6>
         <hr className = "title_underlane"></hr>
       </div>
     );
@@ -13,7 +13,7 @@ function OrderFieldTitle(props){
 function CountProducts(products){
   let content = CreateProductsSet(products);
   content = Array.from(content);
-  console.log(content);
+  // console.log(content);
   let content_counts = Array(content.length).fill(0);
   // console.log(content_set_counts);
   for (let i = 0; i < products.length; i++) {
@@ -42,10 +42,11 @@ function CreateProductsSet(products){
 function OrderFieldContent(props){
   let content = [];
   let counted_products = CountProducts(props.products);
-  console.log(counted_products);
+  // console.log(counted_products);
   Object.entries(counted_products).forEach(([key, value]) => {
-    content.push(<li className = "text-left "> <div className = "font-weight-bold">{key} x {value}</div></li>);
- });
+    content.push(<li className = "d-flex justify-content-between"> <div className = "font-weight-bold order_field_product_name">{key}</div><div className = "order_field_product_count"> x {value}</div></li>);
+    content.push(<hr className = "order_product_underlane"></hr>);
+  });
   return(
     <div className="order_box_content">
       <ul>
@@ -60,8 +61,6 @@ class OrderBox extends React.Component{
 
   render()
   {
-    // console.log(1111);
-    // console.log(this.props.order);
     return(
       <button className="order_box btn btn-outline-dark m-1" id={this.props.order.id} onClick={this.props.onOrderClick}>
         <OrderFieldTitle id={this.props.order.id} time={this.props.order.order_date}/>
