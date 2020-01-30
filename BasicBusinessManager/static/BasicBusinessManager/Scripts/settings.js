@@ -141,7 +141,7 @@ function getJsonObjectWithDataFromHTML(arrayOfIds=[],jsonFile)
 function putObject(url,idVariablesArray=[])
 {
   var csrftoken = getCookie('csrftoken');
-  var user = new Object; 
+  // var user = new Object; 
   var jsonFile;
   $.getJSON(url,function(data)
   {

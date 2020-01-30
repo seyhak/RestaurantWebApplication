@@ -1,8 +1,12 @@
 import OrdersBoard from './order_board/order_board';
+import './order_receiver.css';
+import Receiver from '../receiver';
+
 class OrdersReceiver extends React.Component{//waiting for extensions(? no idea what kind of yet)
     constructor(props){
       super(props);
-      const orders = this.props.orders.results;
+      let orders = this.props.orders.results;
+      console.log(orders);
       this.state = {
         currentOrders:orders,
       }
@@ -11,7 +15,7 @@ class OrdersReceiver extends React.Component{//waiting for extensions(? no idea 
     {
       console.log(this.state);
       return(
-        <div className="order_board_container">
+        <div className="order_board_container float-left">
           <OrdersBoard 
             orders={this.state.currentOrders}
             onOrderClick={id=>this.onOrderBoxClick(id)}
@@ -19,19 +23,21 @@ class OrdersReceiver extends React.Component{//waiting for extensions(? no idea 
         </div>
       );
     }
+
     onOrderBoxClick(id){
       // delete  order box from order board
-      console.log(this.state.currentOrders.results);
       // let id = this.state.currentOrders.orders.indexOf(id);
-      let temp_arr = this.state.currentOrders.orders.splice(id, 1);
-      console.log(temp_arr);
+      let temp_arr =  this.state.currentOrders;
+      temp_arr.splice(id, 1);
+      // console.log("temp+arr");
+      // console.log(temp_arr);
       this.setState({
         currentOrders: temp_arr,
         });
-      alert(id);
-      console.log(this.state.currentOrders.orders);
-      console.log(this.state)
+      Receiver.closeOrder(id);
+      // console.log(this.state.currentOrders);
     }
+
     renderBoard(){
       return(
         <div className="order_board_container">
@@ -42,6 +48,5 @@ class OrdersReceiver extends React.Component{//waiting for extensions(? no idea 
         </div>
       );
     }
-  
   }
 export default OrdersReceiver;

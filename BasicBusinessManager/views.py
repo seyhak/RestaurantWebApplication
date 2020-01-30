@@ -199,13 +199,14 @@ class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [IsOwnerOrReadOnly]
+
 class OrderViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    # permission_classes = [IsOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend]#filtering
     filterset_fields = ['delivered','deliverant']
 

@@ -6,7 +6,7 @@ import OrderBox from './order_box/order_box';
       return(
         <OrderBox
           key = {i}
-          order = {this.props.orders.orders[i]}
+          order = {this.props.orders[i]}
           onOrderClick = {()=>this.props.onOrderClick(i)}
         />
       );
@@ -14,8 +14,9 @@ import OrderBox from './order_box/order_box';
     render()
     {
       var order_boxes = [];
+      console.log(this.props);
       for(var i=0; i<9;i++){
-        if(i<this.props.orders.orders.length){
+        if(i<this.props.orders.length){
           order_boxes.push(this.renderBox(i));
         }
         else{
