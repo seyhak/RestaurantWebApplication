@@ -1,22 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import OrdersReceiver from './order_reciever/order_receiver';
-// import getCookie from '../../scripts/csrf';
-function getCookie(name) {
-  var cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-      var cookies = document.cookie.split(';');
-      for (var i = 0; i < cookies.length; i++) {
-          var cookie = cookies[i].trim();
-          // Does this cookie string begin with the name we want?
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
+import {getCookie, csrfSafeMethod} from '../../scripts/csrf';
+
+
+$.ajaxSetup({
+  beforeSend: function(xhr, settings) 
+  {     
+      var csrftoken = getCookie('csrftoken');
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
       }
   }
-  return cookieValue;
-}
+});
+
 class Receiver{
     constructor(companyID){
       this.companyID = companyID;
@@ -48,23 +45,29 @@ class Receiver{
       });
     }
 
-    static closeOrder(id){
+    static closeOrder(closing_order){
       let csrftoken = getCookie('csrftoken');
+      let id = closing_order.id;
       let url = "http://127.0.0.1:8000/rest/order/" + id.toString() + "/";
-      console.log(url);
-      $.ajax({
-        type: "PUT",
-        url: url,
-        CSRF: csrftoken,
-        data: {"delivered": true},
-        contentType: "application/json",
-        success: (id) => {
-          console.log(id);
-        },
-        error: (id) => {
-          console.log(id.toString() + " failed");
-        }
-        // dataType: dataType
+      $.getJSON(url,function(data)
+      {
+        let jsonFile = JSON.stringify(data);
+        jsonFile = JSON.parse(jsonFile);
+        jsonFile.delivered = true;
+        jsonFile = JSON.stringify(jsonFile);
+        $.ajax({
+          type: "PUT",
+          url: url,
+          CSRF: csrftoken,
+          data: jsonFile,
+          contentType: "application/json",
+          success: (id) => {
+            console.log("order closed" + id.toString());
+          },
+          error: (id) => {
+            console.log("failed to close the order" + id.toString() + " failed");
+          }
+        });
       });
     }
   };

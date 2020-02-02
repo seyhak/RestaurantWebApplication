@@ -11,31 +11,38 @@ from .models.users.employee import Employee, Role
     model = Choice
     extra = 3'''
 
-#modifying admin site for Emloyees 
+
+# modifying admin site for Emloyees 
 class EmployeeAdmin(admin.ModelAdmin):
     '''fieldsets = [
         (None,               {'fields': ['user.name']}),
         ('role', {'fields': ['role.name']}),
     ]'''
-    #inl'''ines = [ChoiceInline]
-    #list_display = ('name', 'role','workplace')
-    list_display = ('user','get_workplaces')
-    #list_filter = ['role','workplace']
-    #search_fields = ['name']
-    
-class ProductInline(admin.TabularInline):
-    model=ProductCounter
+    # inl'''ines = [ChoiceInline]
+    # list_display = ('name', 'role','workplace')
+    list_display = ('user', 'get_workplaces')
+    # list_filter = ['role','workplace']
+    # search_fields = ['name']
 
-@admin.register(Order)#decorator register model
+
+class ProductInline(admin.TabularInline):
+    model = ProductCounter
+
+# decorator register model
+@admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id','order_date','get_orders_id' ,'was_delivered')
+    list_display = ('id', 'order_date', 'get_orders_id', 'deliverant', 'delivered')
     list_filter = ['products']
     search_fields = ['id']
     inlines = [
         ProductInline,
     ]
 
-#registering models to admin site
+    def __str__(self):
+        return "Order" + self.id
+
+
+# registering models to admin site
 admin.site.register(ProductCounter)
 admin.site.register(Company)
 admin.site.register(Sector)
@@ -43,6 +50,5 @@ admin.site.register(Product)
 admin.site.register(Sale_out)
 admin.site.register(Client)
 admin.site.register(CompanyOwner)
-admin.site.register(Employee,EmployeeAdmin)
+admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Role)
-#admin.site.register(Order,OrderAdmin)
