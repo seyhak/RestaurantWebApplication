@@ -10,7 +10,7 @@
     django-admin startproject mysite
 
 3)DATABASE
-
+    manage.py createsuperuser
 4)import (webpack):
     npm init
     npm install -D @babel/core @babel/preset-env @babel/preset-react babel-loader css-loader webpack webpack-cli
@@ -20,14 +20,17 @@
     "scripts":{
         "webpack": "webpack" /*add local webpack - it will look for webpack*/
     }
-
+    (go to script location 1)
     npm run webpack
 
     errors with some pack? reinstall for example react
 
 ---------------------------REACT---------------------------------
 Passing props is how information flows in React apps, from parents to children.
+---------------------------DECORATORS----------------------------
+https://realpython.com/primer-on-python-decorators/
 
+----------------------------- JSX ------------------------------------
 
-
+to create variable JSX use list, listName.push
 

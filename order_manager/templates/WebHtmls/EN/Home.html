@@ -19,8 +19,9 @@
    <script src="{% static 'dist/app.bundle.js' %}"></script>
    {% if request.user.is_authenticated %}
     <div id="react_1"></div>
-   <h1 class="h5 text-center">Hello in RestIT program powered by React and Django.</h1>
+   <!-- <h1 class="h5 text-center">Hello in RestIT program powered by React and Django.</h1> -->
    <section id="react_container"> 
+      {% csrf_token %}
       {% include "WebHtmls\EN\Cards.html" %}
    </section>
    {%else%}

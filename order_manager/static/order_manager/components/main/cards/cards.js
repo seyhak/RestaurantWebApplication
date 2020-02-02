@@ -1,6 +1,4 @@
 import Receiver from  '../../receiver/receiver';
-console.log("Switcher loaded");
-
 
 class Switcher{
     static hideMenu(){

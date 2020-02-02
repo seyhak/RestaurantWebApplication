@@ -34,8 +34,8 @@ function buildUserEnhancedObjectFromJSON(typeData="", userID=0,operationType="GE
 {
   //first function 
   //builds object from json to Client/Employee/CO
-  var requestObject ="";
-  var requestURL="";
+  var requestObject = "";
+  var requestURL = "";
   baseURL = 'http://127.0.0.1:8000/rest/';
   switch(typeData)
   {
@@ -138,15 +138,14 @@ function getJsonObjectWithDataFromHTML(arrayOfIds=[],jsonFile)
   return jsonFile;
 }
 
-function putObject(url,idVariablesArray=[])
+function putObject(url, idVariablesArray=[])
 {
   var csrftoken = getCookie('csrftoken');
-  var user = new Object; 
   var jsonFile;
   $.getJSON(url,function(data)
   {
-    jsonFile=JSON.stringify(data);
-    jsonFile = getJsonObjectWithDataFromHTML(idVariablesArray,jsonFile);
+    jsonFile = JSON.stringify(data);
+    jsonFile = getJsonObjectWithDataFromHTML(idVariablesArray, jsonFile);
     console.log(jsonFile);
     $.ajax({
       type: "PUT",
