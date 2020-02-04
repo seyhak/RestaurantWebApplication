@@ -4,7 +4,7 @@ import './order_box.css'
 function OrderFieldTitle(props){
     return(
       <div className = "order_field_title_box">
-        <h6 className = "text-center font-italic pl-1">{props.id} {props.time.slice(11,19)}</h6>
+        <h6 className = "text-center font-italic">{props.id} - {props.time.slice(11,19)}</h6>
         <hr className = "title_underlane"></hr>
       </div>
     );

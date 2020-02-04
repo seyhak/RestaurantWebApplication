@@ -18,7 +18,7 @@ from .models.order_related_objects.product import Product
 from .models.order_related_objects.sale_out import Sale_out
 
 # rest
-from rest_framework import viewsets, serializers, status, response
+from rest_framework import viewsets, serializers, status, response, pagination
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
@@ -212,6 +212,10 @@ class ClientViewSet(viewsets.ModelViewSet):
     permission_classes = [IsOwnerOrReadOnly]
 
 
+class ExamplePagination(pagination.PageNumberPagination):
+    page_size = 100
+
+
 class OrderViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -220,6 +224,8 @@ class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    # pagination_class = ExamplePagination
+    pagination.PageNumberPagination.page_size = 12
     # permission_classes = [IsOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend]#filtering
     filterset_fields = ['delivered', 'deliverant']
