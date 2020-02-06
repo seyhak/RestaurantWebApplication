@@ -2,8 +2,17 @@ import React from 'react';
 import OrderBox from './order_box/order_box';
 import './order_board.css'
 
+class OrderBoxData{
+  constructor(data){
+    this.size = this.setSize(data);
+    this.data = data;
+  }
+  setSize(data){
+    return Math.round(data.products.length/5 + 1);
+  }
+}
 
-  class OrdersBoard extends React.Component{//3x3 board for the start
+  class OrdersBoard extends React.Component{//4x3 board for the start
     renderBox(i, size=1){
       return(
         <OrderBox
@@ -37,21 +46,39 @@ import './order_board.css'
       }
     }
 
+    countOrderSize(orders_with_sizes){
+      //TODO
+      let amount_of_orders = 0;
+      let amount_of_boxes = 0;  
+      for (let index = 0; index < orders_with_sizes.length; index++) {
+          if(amount_of_orders == 12){
+            amount_of_boxes = index;
+            break;
+          }
+          else{
+            if(amount_of_orders>12 && index > 0){
+              amount_of_orders -= orders_with_sizes[index-1].size;
+              amount_of_boxes = index - 1;
+              break;
+            }
+          }
+          amount_of_orders += orders_with_sizes[index].size;
+        }
+        return amount_of_boxes + 1;
+    }
 
-    prepare_order_boxes(orders){
-      let amount_orders_to_display = 12;
+    prepare_order_boxes(orders, return_orders){
       let orders_to_display = [];
-      if(this.longOrderInOrders(this.props.orders)){
-        orders_to_display = this.resizeOrderBox(this.props.orders, orders_to_display);
+      for (let i = 0; i < orders.length; i++) {
+        orders_to_display.push(new OrderBoxData(orders[i]));
       }
-      else{
-        orders_to_display = this.props.orders;
-      }
+      console.log(orders_to_display);
+      let amount_orders_to_display = this.countOrderSize(orders_to_display);
+      console.log(amount_orders_to_display);
+      console.log(orders);
       for(var i = 0; i < amount_orders_to_display; i++){
-        console.log(this.orders);
         if(i < orders_to_display.length){
-          console.log(i);
-          order_boxes.push(this.renderBox(i, size = 1));
+          return_orders.push(this.renderBox(i, orders_to_display[i].size));
         }
         else{
           break;
@@ -61,8 +88,8 @@ import './order_board.css'
 
     render()
     {
-      var order_boxes = [];
-      order_boxes = prepare_order_boxes(this.props.orders);
+      let order_boxes = [];
+      this.prepare_order_boxes(this.props.orders, order_boxes);
       return(
         <div className="order_board">
           {order_boxes}
