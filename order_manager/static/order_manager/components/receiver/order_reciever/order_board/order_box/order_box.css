@@ -29,10 +29,11 @@ li{
     width: 90%;
 }
 .order_box_content{
+    padding-top: 1.5em;
 }
 .order_box{
     width: 24%;
-    height: 30%;
+    /* height: 30%; */
     padding-top: 0%;
     position: relative;
 }

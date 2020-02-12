@@ -8,7 +8,12 @@ class OrderBoxData{
     this.data = data;
   }
   setSize(data){
-    return Math.round(data.products.length/5 + 1);
+    let products_names_array = [];
+    for (let index = 0; index < data.products.length; index++) {
+      products_names_array.push(data.products[index].name);
+    }
+    const products_set = new Set(products_names_array);
+    return Math.floor(products_set.size/5 + 1);
   }
 }
 
@@ -47,42 +52,48 @@ class OrderBoxData{
     }
 
     countOrderSize(orders_with_sizes){
-      //TODO
+      // orders
       let amount_of_orders = 0;
+      // squares
       let amount_of_boxes = 0;  
+      const max_box_size = 5;
       for (let index = 0; index < orders_with_sizes.length; index++) {
-          if(amount_of_orders == 12){
-            amount_of_boxes = index;
+          //case all order boxes are busy
+          if(amount_of_boxes == 12){
+            break;
+          }
+          // case one order require more order boxes than there is left
+          if(amount_of_boxes > 12){
+            // revert
+            amount_of_boxes -= orders_with_sizes[index-1].size;
+            amount_of_orders --;
             break;
           }
           else{
-            if(amount_of_orders>12 && index > 0){
-              amount_of_orders -= orders_with_sizes[index-1].size;
-              amount_of_boxes = index - 1;
-              break;
-            }
+            amount_of_boxes += orders_with_sizes[index].size;
+            amount_of_orders ++;
+
+            // one huge order case todo
           }
-          amount_of_orders += orders_with_sizes[index].size;
         }
-        return amount_of_boxes + 1;
+
+      return [amount_of_orders, amount_of_boxes]
     }
 
     prepare_order_boxes(orders, return_orders){
       let orders_to_display = [];
+      // create object with data and size
       for (let i = 0; i < orders.length; i++) {
         orders_to_display.push(new OrderBoxData(orders[i]));
       }
       console.log(orders_to_display);
-      let amount_orders_to_display = this.countOrderSize(orders_to_display);
+      let orderBoxSizeInfo = this.countOrderSize(orders_to_display);
+      const amount_orders_to_display = orderBoxSizeInfo[0];
+      const amount_boxes_required = orderBoxSizeInfo[1];
       console.log(amount_orders_to_display);
       console.log(orders);
       for(var i = 0; i < amount_orders_to_display; i++){
-        if(i < orders_to_display.length){
           return_orders.push(this.renderBox(i, orders_to_display[i].size));
-        }
-        else{
-          break;
-        }
       }
     }
 
