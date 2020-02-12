@@ -61,8 +61,13 @@ class OrderBox extends React.Component{
 
   render()
   {
+    let size = this.props.size * 30;
+    let style = {};
+    style['height'] = size.toString() + "%";
+    console.log(this.props);
+    console.log(style);
     return(
-      <button className="order_box btn btn-outline-dark m-1" id={this.props.order.id} onClick={this.props.onOrderClick}>
+      <button className="order_box btn btn-outline-dark m-1" id={this.props.order.id} style={style} onClick={this.props.onOrderClick}>
         <OrderFieldTitle id={this.props.order.id} time={this.props.order.order_date}/>
         <OrderFieldContent products = {this.props.order.products}/>
       </button>
