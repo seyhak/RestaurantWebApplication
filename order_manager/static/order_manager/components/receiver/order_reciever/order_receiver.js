@@ -1,52 +1,71 @@
 import OrdersBoard from './order_board/order_board';
 import './order_receiver.css';
-import Receiver from '../receiver';
 
 class OrdersReceiver extends React.Component{//waiting for extensions(? no idea what kind of yet)
-    constructor(props){
-      super(props);
-      let orders = this.props.orders.results;
-      console.log(orders);
-      this.state = {
-        currentOrders:orders,
-      }
+  constructor(props){
+    super(props);
+    let orders = this.props.orders.results;
+    this.state = {
+      currentOrders:orders,
     }
-    render()
+  }
+
+  onOrderBoxClick(id){
+    let temp_arr =  this.state.currentOrders;
+    temp_arr.splice(id, 1);
+    this.setState({
+      currentOrders: temp_arr,
+      });
+    this.closeOrder(id);
+  }
+
+  renderBoard(){
+    return(
+      <div className="order_board_container">
+      <OrdersBoard 
+        orders={this.state.currentOrders}
+        onOrderClick={id=>this.onOrderBoxClick(id)}
+      />
+      </div>
+    );
+  }
+
+  static closeOrder(closing_order){
+    let csrftoken = getCookie('csrftoken');
+    let id = closing_order.id;
+    let url = "http://127.0.0.1:8000/rest/order/" + id.toString() + "/";
+    $.getJSON(url,function(data)
     {
-      console.log(this.state);
-      return(
-        <div className="order_board_container float-left">
-          <OrdersBoard 
-            orders={this.state.currentOrders}
-            onOrderClick={id=>this.onOrderBoxClick(id)}
-          />
-        </div>
-      );
-    }
+      let jsonFile = JSON.stringify(data);
+      jsonFile = JSON.parse(jsonFile);
+      jsonFile.delivered = true;
+      jsonFile = JSON.stringify(jsonFile);
+      $.ajax({
+        type: "PUT",
+        url: url,
+        CSRF: csrftoken,
+        data: jsonFile,
+        contentType: "application/json",
+        success: (id) => {
+          console.log("order closed" + id.toString());
+        },
+        error: (id) => {
+          console.log("failed to close the order" + id.toString() + " failed");
+        }
+      });
+    });
+  }
 
-    onOrderBoxClick(id){
-      // delete  order box from order board
-      // let id = this.state.currentOrders.orders.indexOf(id);
-      let temp_arr =  this.state.currentOrders;
-      temp_arr.splice(id, 1);
-      // console.log("temp+arr");
-      // console.log(temp_arr);
-      this.setState({
-        currentOrders: temp_arr,
-        });
-      Receiver.closeOrder(id);
-      // console.log(this.state.currentOrders);
-    }
-
-    renderBoard(){
-      return(
-        <div className="order_board_container">
+  render()
+  {
+    return(
+      <div className="order_board_container float-left">
         <OrdersBoard 
           orders={this.state.currentOrders}
           onOrderClick={id=>this.onOrderBoxClick(id)}
         />
-        </div>
-      );
-    }
+      </div>
+    );
   }
+}
 export default OrdersReceiver;
