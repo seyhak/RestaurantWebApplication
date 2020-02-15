@@ -19,7 +19,7 @@ class Receiver{
       this.companyID = companyID;
       this.companyID = this.companyID[0];///decision for workplace - todo
       this.orders="";
-      this.base_url = "http://127.0.0.1:8000/";
+      this.base_url = window.location.origin;
       var me = this;
       $.when(this.getUndoneOrders()).done(function(data){
         me.orders=data;
@@ -35,7 +35,7 @@ class Receiver{
     }
   
      getUndoneOrdersJsonUrl(){
-      var url = this.base_url + "rest/order/?delivered=false&deliverant="+ this.companyID;
+      var url = this.base_url + "/rest/order/?delivered=false&deliverant="+ this.companyID;
       return url;
     }
   

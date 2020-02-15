@@ -1,34 +1,42 @@
 import Receiver from  '../../receiver/receiver';
+import Sender from '../../sender/sender';
 
 class Switcher{
-    static hideMenu(){
-      $(".card").hide();
-    }
-    static getCompanyID(userId)
-    {
-      var base = "http://127.0.0.1:8000/";
-      var url = base + "rest/employee/"+userId+".json";
-      var companyID;
-      return $.getJSON(url,function(data){
-      });
-    }
-  
-    static chooseRestItFunction(foo,userId){
-      if(foo==="sender"){
-        this.hideMenu();
-        this.runRecieverUI(this.getCompanyID(userId));
+  static hideMenu(){
+    $(".card").hide();
+  }
+
+  static getEmployeeData(userId)
+  {
+    let base = window.location.origin;
+    let url = base + "/rest/employee/" + userId + ".json";
+    return $.getJSON(url, (data) => {
+    });
+  }
+
+  static chooseRestItFunction(foo, userId){
+    this.hideMenu();
+    switch(foo){
+      case "sender":{
+        $.when(this.getEmployeeData(userId)).then(
+          (data) => {
+            console.log(data);
+            let sender = new Sender(data.workplace);
+          }
+        )
+        break;
       }
-      else{
-        if(foo==="receiver"){
-          this.hideMenu();
-          var companyID;
-          $.when(this.getCompanyID(userId)).done(function(data){
-            var employee = data;
-            companyID = employee.workplace;
-            var receiver = new Receiver(companyID);
-          });
-        }
+      case "receiver":{
+        $.when(this.getEmployeeData(userId)).then(
+          (data) => {
+            let receiver = new Receiver(data.workplace);
+          }
+        )
+        break;
       }
+      default:
+        console.log("??")
     }
   }
-  export default Switcher;
+}
+export default Switcher;

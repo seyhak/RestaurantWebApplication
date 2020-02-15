@@ -77,11 +77,11 @@ class OrdersBoard extends React.Component{
     for (let i = 0; i < orders.length; i++) {
       orders_to_display.push(new OrderBoxData(orders[i]));
     }
-    console.log(orders_to_display);
+    // console.log(orders_to_display);
     let order_board_boxes_size_info = this.countOrderSize(orders_to_display);
     const amount_orders_to_display = order_board_boxes_size_info['amount_of_orders_display'];
     const amount_boxes_required = order_board_boxes_size_info['amount_of_boxes_to_display'];
-    console.log(amount_orders_to_display);
+    // console.log(amount_orders_to_display);
     // split orders_to_display for columns array
     let order_columns = [];
     let temp_arr = [];
