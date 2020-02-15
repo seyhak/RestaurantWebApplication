@@ -2,4 +2,4 @@ order_manager/static/node_modules/*
 node_modules/
  __pycache__/
  *.pyc
-.vscode/settings.json
+.vscode/*

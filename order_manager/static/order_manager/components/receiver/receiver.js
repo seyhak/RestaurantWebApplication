@@ -44,31 +44,5 @@ class Receiver{
       return $.getJSON(url,function(data){
       });
     }
-
-    static closeOrder(closing_order){
-      let csrftoken = getCookie('csrftoken');
-      let id = closing_order.id;
-      let url = "http://127.0.0.1:8000/rest/order/" + id.toString() + "/";
-      $.getJSON(url,function(data)
-      {
-        let jsonFile = JSON.stringify(data);
-        jsonFile = JSON.parse(jsonFile);
-        jsonFile.delivered = true;
-        jsonFile = JSON.stringify(jsonFile);
-        $.ajax({
-          type: "PUT",
-          url: url,
-          CSRF: csrftoken,
-          data: jsonFile,
-          contentType: "application/json",
-          success: (id) => {
-            console.log("order closed" + id.toString());
-          },
-          error: (id) => {
-            console.log("failed to close the order" + id.toString() + " failed");
-          }
-        });
-      });
-    }
   };
   export default Receiver;

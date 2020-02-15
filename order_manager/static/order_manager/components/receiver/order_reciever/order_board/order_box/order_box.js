@@ -13,9 +13,7 @@ function OrderFieldTitle(props){
 function CountProducts(products){
   let content = CreateProductsSet(products);
   content = Array.from(content);
-  // console.log(content);
   let content_counts = Array(content.length).fill(0);
-  // console.log(content_set_counts);
   for (let i = 0; i < products.length; i++) {
     for(let j = 0; j < content.length; j++){
       if(products[i].name == content[j]){
@@ -42,9 +40,10 @@ function CreateProductsSet(products){
 function OrderFieldContent(props){
   let content = [];
   let counted_products = CountProducts(props.products);
-  // console.log(counted_products);
   Object.entries(counted_products).forEach(([key, value]) => {
-    content.push(<li className = "d-flex justify-content-between"> <div className = "font-weight-bold order_field_product_name">{key}</div><div className = "order_field_product_count"> x {value}</div></li>);
+    content.push(<li className = "d-flex justify-content-between">
+       <div className = "font-weight-bold order_field_product_name">{key}</div>
+       <div className = "order_field_product_count"> x {value}</div></li>);
     content.push(<hr className = "order_product_underlane"></hr>);
   });
   return(
@@ -61,16 +60,14 @@ class OrderBox extends React.Component{
 
   render()
   {
-    let size = this.props.size * 30;
     let style = {};
-    style['height'] = size.toString() + "%";
-    console.log(this.props);
-    console.log(style);
     return(
-      <button className="order_box btn btn-outline-dark m-1" id={this.props.order.id} style={style} onClick={this.props.onOrderClick}>
-        <OrderFieldTitle id={this.props.order.id} time={this.props.order.order_date}/>
-        <OrderFieldContent products = {this.props.order.products}/>
-      </button>
+      <div className="order_box">
+        <button className="order_box_btn btn btn-outline-dark m-1" id={this.props.order.id} style={style} onClick={this.props.onOrderClick}>
+          <OrderFieldTitle id={this.props.order.id} time={this.props.order.order_date}/>
+          <OrderFieldContent products = {this.props.order.products}/>
+        </button>
+      </div>
     );
   }
 }
