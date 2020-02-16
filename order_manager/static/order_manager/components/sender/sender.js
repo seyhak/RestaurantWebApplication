@@ -14,22 +14,25 @@ class Sender{
     constructor(companyID){
       this.companyID = companyID;
       this.companyID = this.companyID[0];///decision for workplace - todo
-      this.orders="";
+      console.log(this.companyID);
+      this.products = "";
       this.base_url = window.location.origin;
       var me = this;
       $.when(this.getProducts()).done((data) => {
-        me.orders=data;
-        me.runReceiverUI();
+        me.products = data;
+        me.runSenderUI();
       });
     }
 
     getProducts(){
-        
+      var url = window.location.origin + "/";
+      return $.getJSON(url,function(data){
+      });
     }
 
     runSenderUI(){
         ReactDOM.render(
-        <OrdersReceiver orders = { this.orders }/>, $("#order_board"));
+        <OrdersReceiver products = { this.products }/>, $("#order_board"));
     }
 }
 
