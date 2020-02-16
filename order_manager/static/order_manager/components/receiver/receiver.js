@@ -23,8 +23,6 @@ class Receiver{
       var me = this;
       $.when(this.getUndoneOrders()).done(function(data){
         me.orders=data;
-        
-      // console.log(data);
         me.runReceiverUI();
       });
     }
