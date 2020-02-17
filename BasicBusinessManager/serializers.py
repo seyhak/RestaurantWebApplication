@@ -15,18 +15,17 @@ class EmployeeSerializer(serializers.ModelSerializer):
     #  expandable_fields = {
     #    "what": (BelongingSerializer, {"source": "what"}),
     #   "to_who": (FriendSerializer, {"source": "to_who"})
-    username = serializers.ReadOnlyField(read_only=True, source="user.username")
+    username = serializers.ReadOnlyField(read_only=True,
+                                         source="user.username")
     # workplace = serializers.IntegerField(read_only=True, source="workplace.name")
     workplace = serializers.PrimaryKeyRelatedField(many=True, queryset=Company.objects.all())
     orders_delivered = serializers.PrimaryKeyRelatedField(many=True, queryset=Order.objects.all())
     role = serializers.ReadOnlyField(read_only=True, source="role.name")
 
     class Meta:
-        # user = UserSerializer()
         model = Employee
-        # fields = ['username', 'workplace', 'salary_per_month', 'birthday', 'orders_delivered','address', 'role']
-        fields = [field.name for field in model._meta.fields]#all
-        fields.extend(['orders_delivered', 'workplace', 'username', 'role']) #add
+        fields = [field.name for field in model._meta.fields]  # all
+        fields.extend(['orders_delivered', 'workplace', 'username', 'role'])  # add
         fields.append('orders_delivered')
         fields.append('workplace')
         fields.append('username')
@@ -34,13 +33,13 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    #firstname = serializers.CharField(source=User.first_name)
-    #id = serializers.IntegerField(source=User.id)
+    # firstname = serializers.CharField(source=User.first_name)
+    # id = serializers.IntegerField(source=User.id)
 
     class Meta:
         model = User
-        #fields = ['id','firstname']
-        fields = [field.name for field in model._meta.fields]#all
+        # fields = ['id','firstname']
+        fields = [field.name for field in model._meta.fields]  # all
 
 
 class CompanyOwnerSerializer(serializers.ModelSerializer):
@@ -49,10 +48,10 @@ class CompanyOwnerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ClientSerializer(serializers.ModelSerializer): 
+class ClientSerializer(serializers.ModelSerializer):
     username = serializers.CharField(read_only=True, source="user.username")
-    firstname = serializers.CharField(read_only=False,source="user.first_name")
-    lastname = serializers.CharField(read_only=False,source="user.last_name")
+    firstname = serializers.CharField(read_only=False, source="user.first_name")
+    lastname = serializers.CharField(read_only=False, source="user.last_name")
 
     class Meta:
         model = Client
@@ -72,6 +71,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+        
 
 
 class OrderSerializer(serializers.ModelSerializer):

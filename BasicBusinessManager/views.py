@@ -1,14 +1,14 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.template import loader
-from django.urls import reverse
-from django.core import exceptions
-from django.views.generic.base import TemplateView
+from django.shortcuts import (
+    render,
+    redirect
+)
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import sessions
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect, csrf_exempt
-from django.http import HttpResponse, HttpResponseRedirect
-# models
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic.base import TemplateView
+from django_filters.rest_framework import DjangoFilterBackend
+# models
 from .models.order_related_objects.company import Company, Sector
 from .models.order_related_objects.order import Order
 from .models.users.employee import Employee, Role
@@ -16,7 +16,6 @@ from .models.users.company_owner import CompanyOwner
 from .models.users.client import Client
 from .models.order_related_objects.product import Product
 from .models.order_related_objects.sale_out import Sale_out
-
 # rest
 from rest_framework import viewsets, serializers, status, response, pagination
 from rest_framework.decorators import api_view
@@ -24,7 +23,10 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from BasicBusinessManager.serializers import *
 from BasicBusinessManager.permissions import *
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import (
+    SessionAuthentication,
+    BasicAuthentication
+)
 from rest_framework.permissions import IsAuthenticated
 # from rest_framework.permissions import IsAuthenticated
 # main home view - templateView used in that purpose,
@@ -46,11 +48,22 @@ class MainView(TemplateView):
 def settings_view(request):
     if request.user.is_authenticated:
         if hasattr(request.user, 'client'):
-            return render(request, 'BasicBusinessManager/WebHtmls/EN/Settings.html',{"account_type":'Client'})
+            return render(
+                request,
+                'BasicBusinessManager/WebHtmls/EN/Settings.html',
+                {"account_type": 'Client'})
         elif hasattr(request.user, 'companyowner'):
-            return render(request, 'BasicBusinessManager/WebHtmls/EN/Settings.html',{"account_type":'CompanyOwner'})
+            return render(
+                request,
+                'BasicBusinessManager/WebHtmls/EN/Settings.html',
+                {"account_type": 'CompanyOwner'}
+            )
         elif hasattr(request.user, 'employee'):
-            return render(request, 'BasicBusinessManager/WebHtmls/EN/Settings.html',{"account_type":'Employee'})
+            return render(
+                request,
+                'BasicBusinessManager/WebHtmls/EN/Settings.html',
+                {"account_type": 'Employee'}
+            )
     else:
         return HttpResponseRedirect(reverse('BasicBusinessManager:main'))
 
@@ -59,9 +72,14 @@ def settings_submit_view(request):
     # http_method_names = ['get', 'post', 'put', 'delete']
     print("submit settings")
     if request.user.is_authenticated:
-        if hasattr(request.user, 'client')or hasattr(request.user, 'companyowner')or hasattr(request.user,'employee'):
-            user = Client.objects.get(pk = request.user.id)
-            return render(request, 'BasicBusinessManager/WebHtmls/EN/Settings.html')
+        if (
+            hasattr(request.user, 'client') or
+            hasattr(request.user, 'companyowner') or
+            hasattr(request.user, 'employee')
+        ):
+            user = Client.objects.get(pk=request.user.id)
+            return render(request,
+                          'BasicBusinessManager/WebHtmls/EN/Settings.html')
         else:
             return HttpResponseRedirect(reverse('BasicBusinessManager:main'))
     else:
@@ -75,7 +93,6 @@ class ContactView(TemplateView):
 def logout_view(request):
     print("logout")
     logout(request)
-    #return redirect('BasicBusinessManager:main')
     return HttpResponseRedirect(reverse('BasicBusinessManager:main'))
 
 
@@ -111,7 +128,6 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 if request.user.is_authenticated:
-                    # request.sessions['user']=user
                     print("user logged in")
                     return HttpResponseRedirect(reverse('BasicBusinessManager:main'))
             else:
@@ -120,10 +136,7 @@ def login_view(request):
             # Always return an HttpResponseRedirect after successfully dealing
             # with POST data. This prevents data from being posted twice if a
             # user hits the Back button.
-
-            # return HttpResponseRedirect(reverse('BasicBusinessManager:login_result'))
             return HttpResponseRedirect(reverse('BasicBusinessManager:main'))
-            # return render(request, 'BasicBusinessManager/WebHtmls/EN/Main.html', {'chuj': chuj})
         elif request.POST.get('submit') == 'sign_up':
             # takes data from inputs by name
             sign_up_data = request.POST.dict()
@@ -162,7 +175,11 @@ def login_view(request):
                 return HttpResponseRedirect(reverse('BasicBusinessManager:main'))
             else: 
                 # if passwords are incorrect it renderds en/login/ page showing modal with "wrong password" info
-                return render(request, 'BasicBusinessManager/WebHtmls/EN/Main.html', {'wrong_pwd':"Password and Confirmation password are not the same or empty !"})
+                return render(
+                    request,
+                    'BasicBusinessManager/WebHtmls/EN/Main.html',
+                    {'wrong_pwd': "Password and Confirmation password are not the same or empty !"}
+                )
 
     return render(request, 'BasicBusinessManager/WebHtmls/EN/Main.html')
 
@@ -184,7 +201,7 @@ class UserViewSet(viewsets.ModelViewSet):
     try:
         queryset = User.objects.all()
         serializer_class = UserSerializer
-        lookup_field = 'username'#it shows what is primary key for lookup detail field
+        lookup_field = 'username'  # it shows what is primary key for lookup detail field
     except Exception:
         User.HTTP_404_NOT_FOUND
 
@@ -227,7 +244,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     # pagination_class = ExamplePagination
     pagination.PageNumberPagination.page_size = 12
     # permission_classes = [IsOwnerOrReadOnly]
-    filter_backends = [DjangoFilterBackend]#filtering
+    filter_backends = [DjangoFilterBackend]  # filtering
     filterset_fields = ['delivered', 'deliverant']
 
 
@@ -249,6 +266,12 @@ class RoleViewSet(viewsets.ModelViewSet):
     permission_classes = [IsOwnerOrReadOnly]
 
 
+class ProductFilter(django_filters.FilterSet):
+    
+
+    class Meta:
+        model = Product
+
 class ProductViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -256,7 +279,9 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsOwnerOrReadOnly]
-
+    filter_backends = [DjangoFilterBackend, ProductFilter]  # filtering
+    filterset_fields = [django_filters.Filter(id=) 'sellers', 'visible']
+TODO
 
 class SaleOutOwnerViewSet(viewsets.ModelViewSet):
     """
