@@ -100,29 +100,11 @@ def login_view(request):
     if request.method == "POST":
         # backend finds object (get) using html - name then check its value
         if request.POST.get('submit') == 'login':
-            # your sign in logic goes here
-
-            print(request.POST.get('login'))
-
-            '''form = MyForm(request.POST)
-
-            print(form['login'].value())
-            print(form.data['login'])
-
-            if form.is_valid():
-
-                print(form.cleaned_data['login'])
-                print(form.instance.login)
-
-                #form.save()
-            print(form.instance.id) # now this one can access id/pk'''
-
             # finds data in html looking for name in html
             login_data = request.POST.dict()
             username = login_data.get("login")
             password = login_data.get("pwd")
             remember_me = login_data.get("remember-me-checkbox")
-            print(username, password, remember_me)
 
             user = authenticate(username=username, password=password)
             if user is not None:
@@ -266,11 +248,29 @@ class RoleViewSet(viewsets.ModelViewSet):
     permission_classes = [IsOwnerOrReadOnly]
 
 
-class ProductFilter(django_filters.FilterSet):
-    
+# class ProductFilter(django_filters.FilterSet):
+#     """
+#     Filter that only returns products being sold by company.
+#     """    
+#     def filter_queryset(self, request, queryset, view):
+#         return queryset.filter(owner=request.user)
+#     class Meta:
+#         model = Product
+# class IsOwnerFilterBackend(filters.BaseFilterBackend):
+# class PurchaseList(generics.ListAPIView):
+#     serializer_class = ProductSerializer
 
-    class Meta:
-        model = Product
+#     def get_queryset(self):
+#         """
+#         Optionally restricts the returned purchases to a given user,
+#         by filtering against a `username` query parameter in the URL.
+#         """
+#         queryset = Product.objects.all()
+#         sellers = self.request.query_params.get('sellers', None)
+#         if username is not None:
+#             queryset = queryset.filter(Product.sellers__id=username)
+#         return queryset
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     """
@@ -279,9 +279,23 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    filter_backends = [DjangoFilterBackend, ProductFilter]  # filtering
-    filterset_fields = [django_filters.Filter(id=) 'sellers', 'visible']
-TODO
+
+    def get_queryset(self):  # override get in Viewset
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = Product.objects.all()
+        sellers = self.request.query_params.getlist('sellers', None)
+        sellers = list(map(lambda x: int(x), sellers))
+
+        if sellers is not None:
+            queryset = self.queryset
+            queryset = queryset.filter(sellers__in=sellers)
+        return queryset
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['visible']
+
 
 class SaleOutOwnerViewSet(viewsets.ModelViewSet):
     """
