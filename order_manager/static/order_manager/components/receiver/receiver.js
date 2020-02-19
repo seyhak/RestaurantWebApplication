@@ -29,7 +29,7 @@ class Receiver{
   
     runReceiverUI(){
       ReactDOM.render(
-      <OrdersReceiver orders = { this.orders }/>, document.getElementById("order_board"));
+      <OrdersReceiver orders = { this.orders }/>, document.getElementById("order_manager_containter"));
     }
   
      getUndoneOrdersJsonUrl(){

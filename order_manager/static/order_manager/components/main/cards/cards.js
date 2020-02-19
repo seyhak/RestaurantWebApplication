@@ -20,7 +20,6 @@ class Switcher{
       case "sender":{
         $.when(this.getEmployeeData(userId)).then(
           (data) => {
-            console.log(data);
             let sender = new Sender(data.workplace);
           }
         )
