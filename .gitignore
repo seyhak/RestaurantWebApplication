@@ -4,3 +4,5 @@ __pycache__/
 *.pyc
 .vscode/*
 BasicBusinessManager/__pycache__/*
+order_manager/static/dist/app.bundle.js
+order_manager/static/dist/app.bundle.js.map

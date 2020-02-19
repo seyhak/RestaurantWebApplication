@@ -279,6 +279,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    filter_backends = [DjangoFilterBackend]  # filtering
+    filterset_fields = ['visible']
 
     def get_queryset(self):  # override get in Viewset
         """
@@ -286,15 +288,18 @@ class ProductViewSet(viewsets.ModelViewSet):
         by filtering against a `username` query parameter in the URL.
         """
         queryset = Product.objects.all()
-        sellers = self.request.query_params.getlist('sellers', None)
+        sellers = self.request.query_params.getlist('seller')
+        visible = self.request.query_params.get('visible')
         sellers = list(map(lambda x: int(x), sellers))
-
-        if sellers is not None:
+        if sellers:
             queryset = self.queryset
             queryset = queryset.filter(sellers__in=sellers)
+            if visible:
+                if visible.lower() not in ['false', '0']:
+                    queryset = queryset.filter(visible=True)
+                else:
+                    queryset = queryset.filter(visible=False)
         return queryset
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['visible']
 
 
 class SaleOutOwnerViewSet(viewsets.ModelViewSet):
