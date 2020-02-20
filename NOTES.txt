@@ -34,3 +34,9 @@ https://realpython.com/primer-on-python-decorators/
 
 to create variable JSX use list, listName.push
 
+
+
+
+from BasicBusinessManager.models.order_related_objects.order import Order
+aa = Order.objects.filter(delivered=True)
+aa.update(delivered=False)
