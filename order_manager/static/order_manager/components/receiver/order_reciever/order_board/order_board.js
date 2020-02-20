@@ -90,7 +90,9 @@ class OrdersBoard extends React.Component{
       temp_arr.push(orders_to_display[i]);
       column_orders_size += orders_to_display[i].size;
       // 3 - amount of rows
-      if(column_orders_size >= this.rows_in_orderboard){
+      if(column_orders_size >= this.rows_in_orderboard ||
+         i + 1 == amount_orders_to_display
+        ){
         order_columns.push(temp_arr);
         temp_arr=[];
         column_orders_size = 0;
