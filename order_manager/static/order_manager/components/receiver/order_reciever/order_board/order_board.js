@@ -7,6 +7,7 @@ class OrderBoxData{
     this.size = this.setSize(data);
     this.data = data;
   }
+
   setSize(data){
     let products_names_array = [];
     for (let index = 0; index < data.products.length; index++) {
@@ -20,9 +21,11 @@ class OrderBoxData{
 class OrdersBoard extends React.Component{
   constructor(props){
     super(props);
-    this.rows_in_orderboard = 4;
-    this.columns_in_orderboard = 4;
+    this.orders = this.props.orders
+    this.rowsInOrderboard = 4
+    this.columnsInOrderboard = 4
   }
+
   renderBox(i){
     return(
       <OrderBox
@@ -41,68 +44,69 @@ class OrdersBoard extends React.Component{
     }
   }
 
-  countOrderSize(orders_with_sizes){
+  countOrderSize(ordersWithSizes){
     // orders
-    let amount_of_orders_display = 0;
+    let amountOfOrdersDisplayed = 0;
     // squares
-    let amount_of_boxes_to_display = 0; 
-    const max_amount_of_boxes_on_board = this.rows_in_orderboard * this.columns_in_orderboard; 
-    const max_box_size = 5;
-    for (let index = 0; index < orders_with_sizes.length; index++) {
+    let amountOfBoxesToDisplay = 0; 
+    const maxAmountOfBoxesOnBoard = this.rowsInOrderboard * this.columnsInOrderboard; 
+    const maxBoxSize = 5;
+    for (let index = 0; index < ordersWithSizes.length; index++) {
         //case all order boxes are busy
-        if(amount_of_boxes_to_display == max_amount_of_boxes_on_board){
+        if(amountOfBoxesToDisplay == maxAmountOfBoxesOnBoard){
           break;
         }
         // case one order require more order boxes than there is left -> revert one step
-        if(amount_of_boxes_to_display > max_amount_of_boxes_on_board){
-          amount_of_boxes_to_display -= orders_with_sizes[index-1].size;
-          amount_of_orders_display --;
+        if(amountOfBoxesToDisplay > maxAmountOfBoxesOnBoard){
+          amountOfBoxesToDisplay -= ordersWithSizes[index-1].size;
+          amountOfOrdersDisplayed --;
           break;
         }
         else{
-          amount_of_boxes_to_display += orders_with_sizes[index].size;
-          amount_of_orders_display ++;
+          amountOfBoxesToDisplay += ordersWithSizes[index].size;
+          amountOfOrdersDisplayed ++;
           // one huge order case todo
         }
       }
     return {
-      amount_of_orders_display: amount_of_orders_display,
-      amount_of_boxes_to_display: amount_of_boxes_to_display
+      amount_of_orders_display: amountOfOrdersDisplayed,
+      amount_of_boxes_to_display: amountOfBoxesToDisplay
     }
   }
 
   prepare_order_boxes(orders, return_orders){
-    let orders_to_display = [];
+    const ordersToDisplay = [];
+    console.log(orders);
     // create object with data and size
     for (let i = 0; i < orders.length; i++) {
-      orders_to_display.push(new OrderBoxData(orders[i]));
+      ordersToDisplay.push(new OrderBoxData(orders[i]));
     }
-    // console.log(orders_to_display);
-    let order_board_boxes_size_info = this.countOrderSize(orders_to_display);
-    const amount_orders_to_display = order_board_boxes_size_info['amount_of_orders_display'];
-    const amount_boxes_required = order_board_boxes_size_info['amount_of_boxes_to_display'];
+    console.log(ordersToDisplay);
+    let orderBoardBoxesSizeInfo = this.countOrderSize(ordersToDisplay);
+    const amountOrdersToDisplay = orderBoardBoxesSizeInfo['amount_of_orders_display'];
+    const amountBoxesRequired = orderBoardBoxesSizeInfo['amount_of_boxes_to_display'];
     // console.log(amount_orders_to_display);
     // split orders_to_display for columns array
-    let order_columns = [];
-    let temp_arr = [];
-    let column_orders_size = 0;
-    for(let i = 0; i < amount_orders_to_display; i++){
-      temp_arr.push(orders_to_display[i]);
-      column_orders_size += orders_to_display[i].size;
+    let orderColumns = [];
+    let tmpArr = [];
+    let columnOrderSize = 0;
+    for(let i = 0; i < amountOrdersToDisplay; i++){
+      tmpArr.push(ordersToDisplay[i]);
+      columnOrderSize += ordersToDisplay[i].size;
       // 3 - amount of rows
-      if(column_orders_size >= this.rows_in_orderboard ||
-         i + 1 == amount_orders_to_display
+      if(columnOrderSize >= this.rowsInOrderboard ||
+         i + 1 == amountOrdersToDisplay
         ){
-        order_columns.push(temp_arr);
-        temp_arr=[];
-        column_orders_size = 0;
+        orderColumns.push(tmpArr);
+        tmpArr=[];
+        columnOrderSize = 0;
       }
     }
     // console.log(order_columns);
     let index = 0;
-    for(let i = 0; i < order_columns.length; i++){
+    for(let i = 0; i < orderColumns.length; i++){
       let column_of_boxes = []
-      for (let j = 0; j < order_columns[i].length; j++) {
+      for (let j = 0; j < orderColumns[i].length; j++) {
         const element = column_of_boxes.push(this.renderBox(index));
         index++;
       }
@@ -116,9 +120,10 @@ class OrdersBoard extends React.Component{
 
   render(){
     let order_boxes = [];
-    // console.log(this.props.orders);
-    this.prepare_order_boxes(this.props.orders, order_boxes);
-    // console.log(order_boxes);
+    // TODO - zepsuło sie coś po zmianie kodu
+    console.log(this.props.orders);
+    this.prepare_order_boxes(this.orders, order_boxes);
+    console.log(order_boxes);
     return(
       <div className="order_board">
         {order_boxes}

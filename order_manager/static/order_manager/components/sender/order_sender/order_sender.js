@@ -4,7 +4,7 @@ import SenderProductBox from './sender_product_box/sender_product_box'
 class OrderSender extends React.Component{//waiting for extensions(? no idea what kind of yet)
   constructor(props){
     super(props)
-    this.products = tprops.products
+    this.products = props.products
 
     this.state = {
       currentOrderProducts: []

@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import Receiver from  '../../receiver/receiver';
 import Sender from '../../sender/sender';
 
@@ -28,8 +30,9 @@ class Switcher{
       case "receiver":{
         $.when(this.getEmployeeData(userId)).then(
           (data) => {
-            let receiver = new Receiver(data.workplace);
-          }
+            ReactDOM.render(
+              <Receiver workplace = { data.workplace }/>, document.getElementById('order_manager_containter'))
+            }
         )
         break;
       }

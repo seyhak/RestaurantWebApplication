@@ -1,46 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import OrdersReceiver from './order_reciever/order_receiver';
-import {getCookie, csrfSafeMethod} from '../../scripts/csrf';
 
-
-$.ajaxSetup({
-  beforeSend: function(xhr, settings) 
-  {     
-      var csrftoken = getCookie('csrftoken');
-      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-          xhr.setRequestHeader("X-CSRFToken", csrftoken);
-      }
+class Receiver extends React.Component{
+  constructor(props){
+    super(props)
+    // this.companyID = companyID;
+    this.companyID = this.props.workplace[0];//decision for workplace - todo
   }
-});
-
-class Receiver{
-    constructor(companyID){
-      this.companyID = companyID;
-      this.companyID = this.companyID[0];///decision for workplace - todo
-      this.orders="";
-      this.base_url = window.location.origin;
-      var me = this;
-      $.when(this.getUndoneOrders()).done(function(data){
-        me.orders=data;
-        me.runReceiverUI();
-      });
-    }
   
-    runReceiverUI(){
-      ReactDOM.render(
-      <OrdersReceiver orders = { this.orders }/>, document.getElementById("order_manager_containter"));
-    }
-  
-     getUndoneOrdersJsonUrl(){
-      var url = this.base_url + "/rest/order/?delivered=false&deliverant="+ this.companyID;
-      return url;
-    }
-  
-    getUndoneOrders(){
-      var url = this.getUndoneOrdersJsonUrl();
-      return $.getJSON(url,function(data){
-      });
-    }
-  };
-  export default Receiver;
+  render(){
+    return(
+      <OrdersReceiver workplace={this.companyID}/>
+    )
+  }
+};
+export default Receiver;
