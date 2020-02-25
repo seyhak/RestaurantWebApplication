@@ -21,7 +21,6 @@ class OrderBoxData{
 class OrdersBoard extends React.Component{
   constructor(props){
     super(props);
-    this.orders = this.props.orders
     this.rowsInOrderboard = 4
     this.columnsInOrderboard = 4
   }
@@ -76,12 +75,11 @@ class OrdersBoard extends React.Component{
 
   prepare_order_boxes(orders, return_orders){
     const ordersToDisplay = [];
-    console.log(orders);
     // create object with data and size
     for (let i = 0; i < orders.length; i++) {
       ordersToDisplay.push(new OrderBoxData(orders[i]));
     }
-    console.log(ordersToDisplay);
+    // console.log(ordersToDisplay);
     let orderBoardBoxesSizeInfo = this.countOrderSize(ordersToDisplay);
     const amountOrdersToDisplay = orderBoardBoxesSizeInfo['amount_of_orders_display'];
     const amountBoxesRequired = orderBoardBoxesSizeInfo['amount_of_boxes_to_display'];
@@ -120,10 +118,9 @@ class OrdersBoard extends React.Component{
 
   render(){
     let order_boxes = [];
-    // TODO - zepsuło sie coś po zmianie kodu
-    console.log(this.props.orders);
-    this.prepare_order_boxes(this.orders, order_boxes);
-    console.log(order_boxes);
+    // console.log(this.props.orders);
+    this.prepare_order_boxes(this.props.orders, order_boxes);
+    // console.log(order_boxes);
     return(
       <div className="order_board">
         {order_boxes}

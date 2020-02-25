@@ -1,41 +1,43 @@
 import Cookies from 'js-cookie'
 import OrdersBoard from './order_board/order_board'
 import './order_receiver.css'
-// import {getCookie, csrfSafeMethod} from '../../scripts/csrf';
-
-
-// $.ajaxSetup({
-//   beforeSend: function(xhr, settings) 
-//   {     
-//       var csrftoken = Cookies.get('csrftoken');
-//       if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-//           xhr.setRequestHeader("X-CSRFToken", csrftoken);
-//       }
-//   }
-// });
 
 class OrdersReceiver extends React.Component{//waiting for extensions(? no idea what kind of yet)
   constructor(props){
     super(props);
     this.workplace = this.props.workplace
     this.state = {
-      orders: []
-    }
+      orders: [],
+      timeGap: 1000
+    } 
   }
 
   componentDidMount() {
-    console.log("Update: " + Date.now())
     this.interval = setInterval(() => {
       $.when(this.getUndoneOrders()).done((data) => {
-        this.setState(
-          { orders: data }
+        this.setState({
+            orders: data.results
+          }
         )
       });
-    }, 5000);
+    }, this.state.timeGap);
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearInterval(this.interval)
+  }
+
+  componentDidUpdate(prevState) {
+    if(this.state.timeGap <= 1000){
+      clearInterval(this.interval)
+      this.interval = setInterval(() => {
+        $.when(this.getUndoneOrders()).done((data) => {
+          this.setState({
+            timeGap: 10000
+          })
+        });
+      }, 10000);
+    }
   }
 
   getUndoneOrdersJsonUrl(){
@@ -44,7 +46,7 @@ class OrdersReceiver extends React.Component{//waiting for extensions(? no idea 
   
   getUndoneOrders(){
     let url = this.getUndoneOrdersJsonUrl();
-    return $.getJSON(url,function(data){
+    return $.getJSON(url, function(data){
     });
   }
 
@@ -53,7 +55,7 @@ class OrdersReceiver extends React.Component{//waiting for extensions(? no idea 
     const id = closingOrder.id;
     console.log(id.toString())
     console.log(closingOrder)
-    const url = window.location.origin + '/rest/order/O/' + id.toString() + "/";
+    const url = window.location.origin + '/rest/orderWRONGLINK/' + id.toString() + "/";
     $.getJSON(url, function(data)
     {
       const headers = new Headers();
@@ -79,29 +81,18 @@ class OrdersReceiver extends React.Component{//waiting for extensions(? no idea 
   }
 
   onOrderBoxClick(orderToClose){
-    let tempArr =  this.state.orders;
-    console.log(orderToClose.id)
-    //TODO delete array obj where ID...
-    console.log(tempArr)
-    console.log(tempArr.splice(orderToClose.id, 1))
-    tempArr.splice(orderToClose.id, 1);
-    console.log(tempArr)
+    const tempArr =  this.state.orders;
+    // console.log(orderToClose.id)
+    // console.log(tempArr)
+    const index = tempArr.indexOf(orderToClose)
+    tempArr.splice(index, 1)
+    // tempArr.splice(orderToClose.id, 1);
+    // console.log(tempArr)
     this.closeOrder(orderToClose);
     this.setState({
       orders: tempArr,
       });
   }
-
-  // renderBoard(){
-  //   return(
-  //     <div className="order_board_container">
-  //     <OrdersBoard 
-  //       orders={this.state.currentOrders}
-  //       onOrderClick={id=>this.onOrderBoxClick(id)}
-  //     />
-  //     </div>
-  //   );
-  // }
 
   render()
   {
