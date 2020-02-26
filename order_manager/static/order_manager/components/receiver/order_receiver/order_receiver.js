@@ -13,6 +13,7 @@ class OrdersReceiver extends React.Component{//waiting for extensions(? no idea 
   }
 
   componentDidMount() {
+    alert("closing is blocked - change url")
     this.interval = setInterval(() => {
       $.when(this.getUndoneOrders()).done((data) => {
         this.setState({

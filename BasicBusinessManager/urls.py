@@ -4,6 +4,7 @@ from django.urls import path, include
 
 from . import views
 from BasicBusinessManager.views import *
+from BasicBusinessManager import endpoints
 # REST
 from rest_framework import routers
 
@@ -22,16 +23,17 @@ router.register(r'role', views.RoleViewSet)
 router.register(r'saleout', views.SaleOutOwnerViewSet)
 router.register(r'product', views.ProductViewSet)
 urlpatterns = [
-    path('en/', views.MainView.as_view(), name='main'),
-    path('en/login/', views.login_view, name='login'),
-    path('en/settings/', views.settings_view, name='settings'),
-    path('en/settings/confirm', views.settings_submit_view, name='settings-confirm'),
-    path('en/logout/', views.logout_view, name='logout'),
-    path('en/contact/', views.ContactView.as_view(), name='contact'),
+    path('', views.MainView.as_view(), name='main'),
+    path('login/', views.login_view, name='login'),
+    path('settings/', views.settings_view, name='settings'),
+    path('settings/confirm', views.settings_submit_view, name='settings-confirm'),
+    path('logout/', views.logout_view, name='logout'),
+    path('contact/', views.ContactView.as_view(), name='contact'),
+    path('me/', endpoints.get_current_user.as_view(), name='me'),
     # REST
     path('rest/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    # path('en/', auth_views.LoginView.as_view(template_name='BasicBusinessManager/WebHtmls/EN/Main.html')),
+    # path('', auth_views.LoginView.as_view(template_name='BasicBusinessManager/WebHtmls/Main.html')),
     #  ex: /polls/5/
     # path('product/<int:product_id>/', views.product_detail, name='product_detail'),
     # ex: /polls/5/results/

@@ -9,8 +9,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect, csrf_
 from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
 
+
 class MainView(TemplateView):
-    template_name = 'WebHtmls/EN/Home.html'
+    template_name = 'WebHtmls/Home.html'
     # sends context data to html. It has to be "get_context_data"
     '''def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
