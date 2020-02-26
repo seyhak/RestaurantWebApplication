@@ -33,7 +33,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class MainView(TemplateView):
-    template_name = 'BasicBusinessManager/WebHtmls/EN/Home.html'
+    template_name = 'BasicBusinessManager/WebHtmls/Home.html'
 
     # sends context data to html. It has to be "get_context_data"
     def get_context_data(self, **kwargs):
@@ -50,18 +50,18 @@ def settings_view(request):
         if hasattr(request.user, 'client'):
             return render(
                 request,
-                'BasicBusinessManager/WebHtmls/EN/Settings.html',
+                'BasicBusinessManager/WebHtmls/Settings.html',
                 {"account_type": 'Client'})
         elif hasattr(request.user, 'companyowner'):
             return render(
                 request,
-                'BasicBusinessManager/WebHtmls/EN/Settings.html',
+                'BasicBusinessManager/WebHtmls/Settings.html',
                 {"account_type": 'CompanyOwner'}
             )
         elif hasattr(request.user, 'employee'):
             return render(
                 request,
-                'BasicBusinessManager/WebHtmls/EN/Settings.html',
+                'BasicBusinessManager/WebHtmls/Settings.html',
                 {"account_type": 'Employee'}
             )
     else:
@@ -79,7 +79,7 @@ def settings_submit_view(request):
         ):
             user = Client.objects.get(pk=request.user.id)
             return render(request,
-                          'BasicBusinessManager/WebHtmls/EN/Settings.html')
+                          'BasicBusinessManager/WebHtmls/Settings.html')
         else:
             return HttpResponseRedirect(reverse('BasicBusinessManager:main'))
     else:
@@ -87,7 +87,10 @@ def settings_submit_view(request):
 
 
 class ContactView(TemplateView):
-    template_name = 'BasicBusinessManager/WebHtmls/EN/Contact.html'
+    template_name = 'BasicBusinessManager/WebHtmls/Contact.html'
+
+
+
 
 
 def logout_view(request):
@@ -135,7 +138,7 @@ def login_view(request):
             if username == "" or username is None:
                 error_msg += " Empty data fields "
             if error_msg != "":
-                return render(request, 'BasicBusinessManager/WebHtmls/EN/Main.html',{'wrong_pwd':error_msg})   
+                return render(request, 'BasicBusinessManager/WebHtmls/Main.html',{'wrong_pwd':error_msg})   
 
             # checks account type then creates user and his child object. Before chcecks if both passwords are the same
             if (password == confirmation_password) and (password != "" and confirmation_password != ""):
@@ -156,14 +159,14 @@ def login_view(request):
                     owner.save()
                 return HttpResponseRedirect(reverse('BasicBusinessManager:main'))
             else: 
-                # if passwords are incorrect it renderds en/login/ page showing modal with "wrong password" info
+                # if passwords are incorrect it renderds login/ page showing modal with "wrong password" info
                 return render(
                     request,
-                    'BasicBusinessManager/WebHtmls/EN/Main.html',
+                    'BasicBusinessManager/WebHtmls/Main.html',
                     {'wrong_pwd': "Password and Confirmation password are not the same or empty !"}
                 )
 
-    return render(request, 'BasicBusinessManager/WebHtmls/EN/Main.html')
+    return render(request, 'BasicBusinessManager/WebHtmls/Main.html')
 
 
 class AccountVerifying:

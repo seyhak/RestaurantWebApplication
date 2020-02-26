@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        app: './order_manager/scripts/main.js' //entry script
+        app: './order_manager/components/main/main.js' //entry script
     },
     watch: true, //will be recompiled after every change
     devtool: 'source-map', //way to debug modern webapps (we can see )

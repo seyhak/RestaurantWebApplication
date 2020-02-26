@@ -71,10 +71,11 @@ class SenderProductBox extends React.Component{
 
   render()
   {
+    console.log("SenderProductBox")
     let style = {};
     return(
-      <div className="order_box">
-        <button className="order_box_btn btn btn-outline-dark m-1" id={this.id} onClick={this.handleClick}>
+      <div className='product_box'>
+        <button className='product_box_btn btn btn-outline-dark m-1' id={this.id} onClick={this.handleClick}>
           <ProductTitleField id={this.id}/>
           <ProductContentField name={this.name} price={this.price} category={this.category}/>
         </button>

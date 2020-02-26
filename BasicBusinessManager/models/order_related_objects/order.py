@@ -6,7 +6,6 @@ from django.core.exceptions import ValidationError
 
 # Create your models here.
 
-
 # Don't allow dates older than order_date.
 class Order(models.Model):
     client = models.ForeignKey(

@@ -1,5 +1,5 @@
 import React from 'react';
-import OrdersReceiver from './order_reciever/order_receiver';
+import OrdersReceiver from './order_receiver/order_receiver';
 
 class Receiver extends React.Component{
   constructor(props){
