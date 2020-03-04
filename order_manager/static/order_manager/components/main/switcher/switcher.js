@@ -11,35 +11,44 @@ class Switcher extends React.Component{
     }
   }
 
-  getEmployeeData(userId)
+  getEmployeeData(employeeId)
   {
     let base = window.location.origin;
-    let url = base + "/rest/employee/" + userId + ".json";
+    let url = base + "/rest/employee/" + employeeId + ".json";
+    console.log(url)
     return $.getJSON(url, (data) => {
-    });
+    })
+    .done(()=>console.log(123123))
+    .fail(() => {
+      console.log("asdas")
+      return null
+      this.setState({
+        visible: true
+      })
+    })
+    .success((data) => {
+      return data
+    })
   }
 
-  chooseRestItFunction = (foo, userId) => {
-    userId = 0
-    this.setState({
-      visible: false
-    })
+  chooseRestItFunction = (foo, employeeId) => {
+    employeeId = 3 //solaris 
     switch(foo){
-      case "sender":{
-        $.when(this.getEmployeeData(userId)).then(
+      case "sender": {
+        $.when(this.getEmployeeData(employeeId)).then(
           (data) => {
             let sender = new Sender(data.workplace);
           }
         )
         break;
       }
-      case "receiver":{
-        $.when(this.getEmployeeData(userId)).then(
-          (data) => {
-            const element = document.getElementsByClassName('order_manager_containter')
-            ReactDOM.render(
-              <Receiver workplace = { data.workplace }/>, element[0])
-            }
+      case "receiver": {
+        let gg = this.getEmployeeData(employeeId)
+        console.log(gg)
+        console.log("pizda")
+        const element = document.getElementsByClassName('order_manager_containter')
+        ReactDOM.render(
+          <Receiver workplace = { gg.workplace }/>, element[0]
         )
         break;
       }

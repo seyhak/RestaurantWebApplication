@@ -29,7 +29,7 @@ urlpatterns = [
     path('settings/confirm', views.settings_submit_view, name='settings-confirm'),
     path('logout/', views.logout_view, name='logout'),
     path('contact/', views.ContactView.as_view(), name='contact'),
-    path('me/', endpoints.get_current_user.as_view(), name='me'),
+    path('me/', endpoints.get_current_user, name='me'),
     # REST
     path('rest/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

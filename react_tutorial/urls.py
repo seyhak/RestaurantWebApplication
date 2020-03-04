@@ -10,7 +10,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 #namespace
 app_name = 'react_tutorial'
 urlpatterns = [
-    path('en/react_tutorial', views.MainView.as_view(), name='home'),
+    path('react_tutorial', views.MainView.as_view(), name='home'),
 ]
 
 #strange bug - it doesnt want to work
