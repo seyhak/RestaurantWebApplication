@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Switcher from  './switcher/switcher';
+import AppContainer from  './app_container';
 import  './main.css'
 
 
@@ -9,8 +9,11 @@ class OrderManager{
         //TODO USER
         window.addEventListener('load', () => {
             const element = document.getElementsByClassName('order_manager_containter')
+            const user = {
+                id: 2
+            }
             ReactDOM.render(
-                <Switcher/>, element[0]
+                <AppContainer user={user}/>, element[0]
             )
         })
     }       
