@@ -1,40 +1,56 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import OrdersSender from './order_sender/order_sender';
 import Cookies from 'js-cookie';
 
-class Sender{
-  constructor(companyID){
-    this.companyID = companyID;
-    this.companyID = this.companyID[0];
-    this.products = "";
-    this.base_url = window.location.origin;
-    var me = this;
-    // TODO company choosing
-    let id_list = [1]
-    $.when(this.getProducts(id_list)).done((data) => {
-      me.products = data;
-      me.runSenderUI();
-    });
+class Sender extends React.Component{
+  constructor(props){
+    super(props)
+    this.companyID = this.props.companyID[0]//choice TODO;
+    this.state = ({
+      loading = false,
+      products = null
+    })
   }
   //id filtering todo
   getProducts(id_list){
-    const seller_prefix = "seller="
-    let sellers = []
-    id_list.forEach((item) => {
-      sellers.push(seller_prefix+item)
+    this.setState({
+      loading: false
     })
-    sellers.join("&")
-    let url = window.location.origin + "/rest/product/?" + sellers
-    return $.getJSON(url,function(data){
-    });
+    const seller = "seller=" + this.companyID
+    let url = window.location.origin + "/rest/product/?" + seller
+    $.getJSON(url,function(data){
+    })
+    .fail(() => {
+      console.log("wrong company ID")
+      this.setState({
+          loading: false
+      })
+  })
+  .success((data) => {
+      console.log(data)
+      this.setState({
+          products: data,
+          loading: false
+      })
+  })
+
   }
 
-  runSenderUI(){
-    console.log(this.products)
-    ReactDOM.render(
-      <OrdersSender products = { this.products }/>, $(".order_manager_containter"));
+
+  render(){
+    if(this.state.products == null && !this.state.loading){
+      this.getProducts(this.companyID)
+    }
+    if(this.state.loading){
+      //loading here
+    }
+    else{
+      return(
+        <OrdersSender products = { this.state.products }/>//TODO
+      )
+    }
   }
+  
 }
 
 export default Sender;

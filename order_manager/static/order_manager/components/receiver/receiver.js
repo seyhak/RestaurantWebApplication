@@ -5,7 +5,7 @@ class Receiver extends React.Component{
   constructor(props){
     super(props)
     // this.companyID = companyID;
-    this.companyID = this.props.workplace[0];//decision for workplace - todo
+    this.companyID = this.props.companyID[0];//decision for workplace - todo
   }
   
   render(){
