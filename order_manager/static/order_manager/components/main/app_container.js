@@ -35,7 +35,7 @@ class AppContainer extends React.Component{
   {
     let base = window.location.origin;
     let url = base + "/rest/employee/" + employeeId + ".json";
-    console.log(url)
+    // console.log(url)
     this.setState({
         loading: true
     })
@@ -61,7 +61,7 @@ class AppContainer extends React.Component{
 
 
   render(){
-    console.log(this.state)
+    // console.log(this.state)
     if(this.state.menuVisible){
         return(
            <Switcher chooseRestItFunction = { this.chooseRestItFunction }/> 
