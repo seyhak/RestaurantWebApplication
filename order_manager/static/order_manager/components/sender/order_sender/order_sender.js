@@ -5,7 +5,6 @@ class OrderSender extends React.Component{//waiting for extensions(? no idea wha
   constructor(props){
     super(props)
     this.products = props.products
-
     this.state = {
       currentOrderProducts: []
     }
@@ -22,12 +21,13 @@ class OrderSender extends React.Component{//waiting for extensions(? no idea wha
   prepareContent = () => {
     let content = []
     let products = this.products
-    for(let i = 0; i < products.length; i++){
+    for(let i = 0; i < products.count; i++){
       content.push(
         <SenderProductBox
-          name={products[i].name}
-          id={products[i].id}
-          price={products[i].price}
+          name={products.results[i].name}
+          id={products.results[i].id}
+          price={products.results[i].price}
+          //probably TODO properly
           onClick={this.handleClick}
         />
       )
@@ -35,7 +35,9 @@ class OrderSender extends React.Component{//waiting for extensions(? no idea wha
     return content
   }
   render(){
+    console.log(this.props)
     let content = this.prepareContent()
+    console.log(content)
     return(
         <div className='order_sender_container'>
           {content}
