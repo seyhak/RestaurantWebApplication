@@ -2,13 +2,13 @@ import React from 'react';
 import './sender_product_box.css'
 
 function ProductTitleField(props){
-    return(
-      <div className = "product_field_title_box">
-        <h6 className = "text-center font-italic">{props.id}</h6>
-        <hr className = "title_underlane"></hr>
-      </div>
-    );
-  }
+  return(
+    <div className = "product_field_title_box">
+      <h6 className = "text-center font-italic">{props.id}</h6>
+      <hr className = "title_underlane"></hr>
+    </div>
+  );
+}
 
 function CountProducts(products){
   let content = CreateProductsSet(products);
@@ -66,4 +66,4 @@ class SenderProductBox extends React.Component{
     );
   }
 }
-export default SenderProductBox;
+export default SenderProductBox
