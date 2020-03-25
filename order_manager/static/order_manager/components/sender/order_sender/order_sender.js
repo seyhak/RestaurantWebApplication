@@ -1,5 +1,6 @@
 import React from 'react';
 import SenderProductBox from './sender_product_box/sender_product_box'
+import SenderCurrentOrdersContainer from './sender_current_orders_container'
 
 class OrderSender extends React.Component{//waiting for extensions(? no idea what kind of yet)
   constructor(props){
@@ -40,8 +41,16 @@ class OrderSender extends React.Component{//waiting for extensions(? no idea wha
     console.log(content)
     return(
         <div className='order_sender_container'>
-          {content}
+          <div className='order_sender_products_boxes_container'>
+            {content}
+          </div>
+          <div className='order_sender_current_orders_container'>
+            <SenderCurrentOrdersContainer
+              currentOrders={this.state.currentOrderProducts}
+            />
+          </div>
         </div>
+        
     );
   }
 }  
