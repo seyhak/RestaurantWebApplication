@@ -4,5 +4,16 @@ __pycache__/
 *.pyc
 .vscode/*
 BasicBusinessManager/__pycache__/*
+BasicBusinessManager/__pycache__/*.pyc
 order_manager/static/dist/app.bundle.js
 order_manager/static/dist/app.bundle.js.map
+BasicBusinessManager/__pycache__/serializers.cpython-37.pyc
+BasicBusinessManager/__pycache__/serializers.cpython-37.pyc
+BasicBusinessManager/__pycache__/urls.cpython-37.pyc
+BasicBusinessManager/__pycache__/views.cpython-37.pyc
+BasicBusinessManager/models/order_related_objects/__pycache__/company.cpython-37.pyc
+BasicBusinessManager/models/order_related_objects/__pycache__/order.cpython-37.pyc
+BasicBusinessManager/models/order_related_objects/__pycache__/product.cpython-37.pyc
+BasicBusinessManager/models/order_related_objects/__pycache__/sale_out.cpython-37.pyc
+order_manager/__pycache__/urls.cpython-37.pyc
+order_manager/__pycache__/views.cpython-37.pyc
