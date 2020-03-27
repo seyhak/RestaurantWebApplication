@@ -31,7 +31,7 @@ function CountProducts(products){
 
 function ProductContentField(props){
   let content = [];
-  console.log(props)
+  // console.log(props)
   return(
     <div className="sender_box_content">
       <ul>

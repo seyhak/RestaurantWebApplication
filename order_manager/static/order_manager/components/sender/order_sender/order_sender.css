@@ -1,0 +1,14 @@
+.order_sender_container{
+    position: relative;
+    width: 100%;
+}
+
+.order_sender_menu_products_boxes_container{
+    width: 70%;
+    flex: 70%
+} 
+
+.order_sender_current_orders_container{
+    width: 30%;
+    flex: 70%
+}

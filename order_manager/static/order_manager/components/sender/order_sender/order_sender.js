@@ -1,17 +1,18 @@
-import React from 'react';
+import React from 'react'
 import SenderProductBox from './sender_product_box/sender_product_box'
-import SenderCurrentOrdersContainer from './sender_current_orders_container'
+import SenderCurrentOrdersContainer from './sender_current_orders_container/sender_current_orders_container'
 
 class OrderSender extends React.Component{//waiting for extensions(? no idea what kind of yet)
   constructor(props){
     super(props)
-    this.products = props.products
+    this.products = this.props.products
     this.state = {
       currentOrderProducts: []
     }
   }
 
   handleClick = (product) => {
+    // console.log(product)
     let currentOrderProducts = this.state.currentOrderProducts
     currentOrderProducts.push(product)
     this.setState({
@@ -19,30 +20,31 @@ class OrderSender extends React.Component{//waiting for extensions(? no idea wha
     })
   }
 
-  prepareContent = () => {
+  getMenu = () => {
     let content = []
-    let products = this.products
+    let products = this.props.products
     for(let i = 0; i < products.count; i++){
       content.push(
         <SenderProductBox
           name={products.results[i].name}
           id={products.results[i].id}
           price={products.results[i].price}
-          //probably TODO properly
-          onClick={this.handleClick}
+          onClick={() => this.handleClick(products.results[i])}
         />
       )
     }
     return content
   }
+
   render(){
-    console.log(this.props)
-    let content = this.prepareContent()
-    console.log(content)
+    // console.log(this.props)
+    let menu = this.getMenu()
+    // console.log(content)
+    // console.log(this.state.currentOrderProducts)
     return(
         <div className='order_sender_container'>
-          <div className='order_sender_products_boxes_container'>
-            {content}
+          <div className='order_sender_menu_products_boxes_container'>
+            {menu}
           </div>
           <div className='order_sender_current_orders_container'>
             <SenderCurrentOrdersContainer

@@ -1,17 +1,23 @@
 import React from 'react'
+import SenderProductBox from '../../sender_product_box/sender_product_box'
 
 class CurrentOrdersList extends React.Component{
     constructor(props){
         super(props)
-        this.currentOrders = this.props.currentOrders
+        let currentOrders = this.props.currentOrders
         this.state = {
-            currentOrders: this.currentOrders
+            currentOrders: currentOrders
         }
     }
-    //TODO THIS THING
-    prepareListObjects = () => {
+
+    handleClick = (i) => {
+
+    } 
+
+    getListObjects = () => {
         let content = []
         let products = this.state.currentOrders
+        console.log(products)
         for(let i = 0; i < products.count; i++){
           content.push(
             <SenderProductBox
@@ -19,7 +25,7 @@ class CurrentOrdersList extends React.Component{
               id={products.results[i].id}
               price={products.results[i].price}
               //probably TODO properly
-              onClick={this.handleClick}
+              onClick={this.handleClick(i)}
             />
           )
         }
@@ -27,7 +33,7 @@ class CurrentOrdersList extends React.Component{
     }
 
     render(){
-        let orderListObjects = this.prepareListObjects()
+        let orderListObjects = this.getListObjects()
         return(
             <div className = "current_order_list">
                 <div>
