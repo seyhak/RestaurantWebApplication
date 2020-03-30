@@ -1,36 +1,32 @@
 /*ID>class,pseudoclass>tag selectors,pseudoelements*/
-section
-{
+section{
     height: 100vh;
 }
-a
-{
+a{
     text-decoration: none;
     color:black;
 }
-.settings-view .settings-input
-{
+.order_manager_containter{
+    height: 100%;
+}
+.settings-view .settings-input{
     min-width: 100%;
 }
-.card
-{
+.card{
      width:35vw;
 } 
 /*mobile devices first-design for mobiles - desktops are faster so they adapt faster */
 @media only screen and (min-width: 768px) {
     /* For desktop: */
-.card
-{
-     width:35vw;
-} 
-.nav-item
-{
-   width: auto;
-}
-#carousel-txt
-{
-    font-size: 4em;
-}
+    .card{
+        width:35vw;
+    } 
+    .nav-item{
+    width: auto;
+    }
+    #carousel-txt{
+        font-size: 4em;
+    }
 }
 @media only screen and (max-width: 350px) {
     /* For mini mobile phones:*/

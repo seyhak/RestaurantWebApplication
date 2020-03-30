@@ -1,6 +1,7 @@
 import React from 'react'
 import SenderProductBox from './sender_product_box/sender_product_box'
 import SenderCurrentOrdersContainer from './sender_current_orders_container/sender_current_orders_container'
+import './order_sender.css'
 
 class OrderSender extends React.Component{//waiting for extensions(? no idea what kind of yet)
   constructor(props){

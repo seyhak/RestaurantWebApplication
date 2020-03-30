@@ -39,7 +39,7 @@ class SenderCurrentOrderContainer extends React.Component{
     let style = {};
     return(
       <div className='order_sender_current_orders'>
-        <button className='product_box_btn btn btn-outline-dark m-1' onClick={this.handleClick}>
+        <button className='current_orders_btn btn btn-outline-dark m-1' onClick={this.handleClick}>
           <CurrentOrdersList currentOrders={this.props.currentOrders}/>
           <CurrentOrderPriceButton price={price}/>
         </button>

@@ -1,5 +1,6 @@
 import React from 'react'
 import SenderProductBox from '../../sender_product_box/sender_product_box'
+import './current_orders_list.css'
 
 class CurrentOrdersList extends React.Component{
     constructor(props){
@@ -36,7 +37,7 @@ class CurrentOrdersList extends React.Component{
         let orderListObjects = this.getListObjects()
         return(
             <div className = "current_order_list">
-                <div>
+                <div className = "current_order_list_title">
                     <h6 className = "text-center font-italic">Current Orders:</h6>
                     <hr className = "title_underlane"></hr>
                 </div>

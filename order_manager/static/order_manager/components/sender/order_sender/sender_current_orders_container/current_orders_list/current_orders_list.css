@@ -1,0 +1,9 @@
+.current_order_list{
+    position: relative;
+}
+.current_order_list_title{
+    position: absolute;
+    top: -11em;
+    text-align: center;
+    width: 100%;
+}
