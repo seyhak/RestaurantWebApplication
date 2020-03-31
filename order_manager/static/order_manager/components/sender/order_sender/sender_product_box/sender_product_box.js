@@ -4,7 +4,7 @@ import './sender_product_box.css'
 function ProductTitleField(props){
   return(
     <div className = "product_field_title_box">
-      <h6 className = "text-center font-italic">{props.id}</h6>
+      <h6 className = "text-center">{props.id}: {props.price}</h6>
       <hr className = "title_underlane"></hr>
     </div>
   );
@@ -36,8 +36,8 @@ function ProductContentField(props){
     <div className="sender_box_content">
       <ul>
         <li className = "d-flex justify-content-between">
-        <div className = "font-weight-bold sender_field_product_name">{props.name} : {props.price}</div></li>
-        {/* <hr className = "sender_product_underlane"></hr> */}
+          <div className = "font-weight-bold text-center sender_field_product_name">{props.name}</div>
+        </li>
       </ul>
     </div>
   );
@@ -59,8 +59,8 @@ class SenderProductBox extends React.Component{
     return(
       <div className='product_box'>
         <button className='product_box_btn btn btn-outline-dark m-1' onClick={this.handleClick}>
-          <ProductTitleField id={this.id}/>
-          <ProductContentField name={this.name} price={this.price}/>
+          <ProductTitleField id={this.id} price={this.price}/>
+          <ProductContentField name={this.name}/>
         </button>
       </div>
     );

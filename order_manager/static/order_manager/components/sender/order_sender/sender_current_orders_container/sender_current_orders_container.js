@@ -8,14 +8,10 @@ function CurrentOrderPriceButton(props){
   let content = [];
   console.log(props)
   return(
-    <div className="sender_box_content">
-      <ul>
-        <li className = "d-flex justify-content-between">
-          <div className = "font-weight-bold sender_field_product_name">{props.price}</div>
-        </li>
-        {/* <hr className = "sender_product_underlane"></hr> */}
-      </ul>
-    </div>
+      <div className = "font-weight-bold current_order_list_price">
+        <hr className = "title_underlane"></hr>
+        {props.price}
+      </div>
   );
 }
 

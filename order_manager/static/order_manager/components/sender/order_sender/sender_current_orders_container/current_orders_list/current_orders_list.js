@@ -36,12 +36,14 @@ class CurrentOrdersList extends React.Component{
     render(){
         let orderListObjects = this.getListObjects()
         return(
-            <div className = "current_order_list">
+            <div className = "current_order_list_container">
                 <div className = "current_order_list_title">
                     <h6 className = "text-center font-italic">Current Orders:</h6>
                     <hr className = "title_underlane"></hr>
                 </div>
-                {orderListObjects}
+                <div className = "current_order_list">
+                    {orderListObjects}
+                </div>
             </div>
         )
     }

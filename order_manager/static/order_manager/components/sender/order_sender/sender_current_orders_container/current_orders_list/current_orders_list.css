@@ -1,9 +1,13 @@
-.current_order_list{
-    position: relative;
+.current_order_list_container{
+    height: 93%;
+    width: 100%;
 }
 .current_order_list_title{
-    position: absolute;
-    top: -11em;
+    height: 7%;
+    width: 100%;
     text-align: center;
+}
+.current_order_list{
+    height: 93%;
     width: 100%;
 }
