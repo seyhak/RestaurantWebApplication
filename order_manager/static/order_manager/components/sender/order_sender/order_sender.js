@@ -8,7 +8,7 @@ class OrderSender extends React.Component{//waiting for extensions(? no idea wha
         super(props)
         this.products = this.props.products
         this.state = {
-        currentOrderProducts: []
+            currentOrderProducts: []
         }
     }
 
@@ -31,6 +31,7 @@ class OrderSender extends React.Component{//waiting for extensions(? no idea wha
                 id={products.results[i].id}
                 price={products.results[i].price}
                 onClick={() => this.handleClick(products.results[i])}
+                className={'product_box_menu'}
                 />
             )
         }

@@ -39,10 +39,16 @@ li{
     height: 100%;
 }
 .product_box {
+    margin: 0.2em;
+}
+.product_box_menu{
+    display: inline-block;
     min-height: 20%;
     width: 15%;
-    display: inline-block;
-    margin: 0.2em;
+}
+.product_box_current_orders{
+    display: block;
+    width: 100%;
 }
 .sender_field_product_name{
     width: 100%;

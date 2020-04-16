@@ -4,7 +4,7 @@ import './sender_product_box.css'
 function ProductTitleField(props){
   return(
     <div className = "product_field_title_box">
-      <h6 className = "text-center">{props.id}: {props.price}</h6>
+      <h6 className = "text-center">{props.price}</h6>
       <hr className = "title_underlane"></hr>
     </div>
   );
@@ -46,21 +46,16 @@ function ProductContentField(props){
 class SenderProductBox extends React.Component{
   constructor(props){
     super(props)
-    this.name = props.name
-    // this.category = props.category
-    this.id = props.id
-    this.price = props.price
-    this.handleClick = props.onClick
   }
 
   render()
   {
     let style = {};
     return(
-      <div className='product_box'>
-        <button className='product_box_btn btn btn-outline-dark m-1' onClick={this.handleClick}>
-          <ProductTitleField id={this.id} price={this.price}/>
-          <ProductContentField name={this.name}/>
+      <div className={'product_box ' + this.props.className}>
+        <button className='product_box_btn btn btn-outline-dark m-1' onClick={this.props.onClick}>
+          <ProductTitleField price={this.props.price}/>
+          <ProductContentField name={this.props.name}/>
         </button>
       </div>
     );

@@ -12,21 +12,21 @@ class CurrentOrdersList extends React.Component{
     }
 
     handleClick = (i) => {
-
+        console.log('delete ' + i)
     } 
 
     getListObjects = () => {
         let content = []
         let products = this.state.currentOrders
         console.log(products)
-        for(let i = 0; i < products.count; i++){
+        for(let i = 0; i < products.length; i++){
           content.push(
             <SenderProductBox
-              name={products.results[i].name}
-              id={products.results[i].id}
-              price={products.results[i].price}
-              //probably TODO properly
-              onClick={this.handleClick(i)}
+                name={products[i].name}
+                id={products[i].id}
+                price={products[i].price}
+                onClick={() => this.handleClick(products[i])}
+                className={'product_box_current_orders'}
             />
           )
         }
@@ -35,6 +35,7 @@ class CurrentOrdersList extends React.Component{
 
     render(){
         let orderListObjects = this.getListObjects()
+        console.log(this.state.currentOrders)
         return(
             <div className = "current_order_list_container">
                 <div className = "current_order_list_title">
